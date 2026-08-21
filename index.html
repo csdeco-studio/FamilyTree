@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>家系圖快速製作器 V6.2.3</title>
+<title>家系圖快速製作器 V6.2.4</title>
 <style>
 :root{
     --bg:#f4f6f8;
@@ -242,6 +242,7 @@
 .retired-feature,#smartScanDialog,#aiAssistDialog{display:none!important}
 .diagram-text-card{display:grid;gap:9px}
 .diagram-text-card .btn{width:100%}
+.sponsor-btn{background:#fff8ec;border-color:#e7c98d;color:#72520f;text-decoration:none}.sponsor-btn:hover{background:#fff1d6;border-color:#d9ad55}.sponsor-btn::after{content:" ↗";font-size:11px}
 
 </style>
 </head>
@@ -251,12 +252,13 @@
     <div class="brand">
       <div class="brand-mark">系</div>
       <div>
-        <h1>家系圖快速製作器 <span class="version-badge" id="versionBadge">V6.2.3</span></h1>
+        <h1>家系圖快速製作器 <span class="version-badge" id="versionBadge">V6.2.4</span></h1>
         <p>台灣社工家系圖排列｜文字與圖面雙向轉換｜完全離線使用</p>
       </div>
     </div>
     <div class="header-actions">
       <button class="btn small privacy-toggle" id="anonymizeBtn" type="button" aria-pressed="false">匿名化：關</button>
+      <a class="btn small sponsor-btn" href="https://myship.7-11.com.tw/general/detail/GM2608215001811" target="_blank" rel="noopener noreferrer" title="前往贊助賣場，支持免費工具持續維護">贊助賣場</a>
       <button class="btn small" id="versionBtn" type="button">版本說明</button>
       <button class="btn small" id="reverseTextBtn" type="button">圖面轉文字</button>
       <button class="btn small" id="saveProjectBtn">儲存專案</button>
@@ -431,7 +433,7 @@
           <div class="hint">此功能不會刪除原始姓名，只改變畫布顯示與 SVG／PNG／PDF 輸出。JSON 專案仍保留原始資料，請妥善保管。</div>
         </div>
         <div class="privacy"><strong>個資提醒：</strong>專案預設只存於目前瀏覽器，不會自動上傳。暴力、健康、兒少與家庭關係屬高度敏感資料，正式使用仍請依機構個資及資訊安全規範處理。</div>
-        <div class="legal-notice" style="margin-top:9px"><strong>授權與著作權：</strong>本軟體由騰元提供免費使用。未經授權，任何人不得重製、修改後販售、出租、收費提供、再授權或以其他方式用於營利；軟體著作權及相關權利均予保留。</div>
+        <div class="legal-notice" style="margin-top:9px"><strong>授權與著作權：</strong>本軟體由CSDeco提供免費使用。未經授權，任何人不得重製、修改後販售、出租、收費提供、再授權或以其他方式用於營利；軟體著作權及相關權利均予保留。</div>
       </section>
       <section class="section">
         <div class="version-card"><strong>版本 6.2.2</strong><span>2026-08-18</span><p>強化文字轉家系圖說明：明確區分同性別稱謂排行與全體出生排行，並補充父母、個案手足與子女的建議輸入方式。</p></div>
@@ -535,10 +537,11 @@
 </dialog>
 
 <dialog id="versionDialog">
-  <div class="dialog-head">家系圖快速製作器 V6.2.3</div>
+  <div class="dialog-head">家系圖快速製作器 V6.2.4</div>
   <div class="dialog-body version-dialog-body">
-    <p><strong>發布日期：</strong>2026-07-28</p>
+    <p><strong>發布日期：</strong>2026-08-21</p>
     <ul>
+      <li><strong>V6.2.4 贊助賣場：</strong>右上方新增「贊助賣場」連結，會另開新分頁前往支持免費工具持續維護的賣場，不影響目前家系圖內容。</li>
       <li><strong>V6.2.3 排行說明：</strong>文字輸入區新增完整的父母、手足與子女排行說明，特別標示「長子／長女」是各自同性別排行；混合性別時建議使用「排行第X」指定整體出生順序。</li>
       <li><strong>V6.2.1 功能精簡：</strong>取消掃描底圖、圖片上傳、本機圖形／文字辨識及外部 AI 判讀，降低操作複雜度並維持完全離線。</li>
       <li><strong>V6.2.1 社工口語紀錄：</strong>原「條列核對格式」改為連貫的社工口語紀錄模式，會整合案主、家庭成員、婚姻、親子、互動、同住範圍及服務資源。</li>
