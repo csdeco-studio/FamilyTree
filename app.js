@@ -16,7 +16,7 @@
   const toast = $('#toast');
 
   const GRID_SIZE = 20;
-  const APP_VERSION = '5.1.1';
+  const APP_VERSION = '5.1.0';
   const BUILD_DATE = '2026-07-28';
   const EXPORT_PADDING = 70;
 
@@ -801,57 +801,28 @@
     updateStatus();
   }
 
-  function isSelectedObject(kind,id){
-    return state.selected?.kind===kind && state.selected?.id===id;
-  }
-
-  function selectObject(kind,id,{openInspector=true}={}){
-    state.selected={kind,id};
-    redrawSelectionOnly();renderInspector();updateStatus();
-    if(openInspector && window.matchMedia('(max-width:1080px)').matches) $('#rightPanel').classList.add('open');
-  }
-
   function selectFromEvent(evt){
     evt.stopPropagation();
     const g=evt.currentTarget;
-    selectObject(g.dataset.kind,g.dataset.id);
+    state.selected={kind:g.dataset.kind,id:g.dataset.id};
+    redrawSelectionOnly();renderInspector();updateStatus();
+    if(window.matchMedia('(max-width:1080px)').matches) $('#rightPanel').classList.add('open');
   }
 
   function beginObjectDrag(kind,id,point,pointerId){
     const obj=kind==='node'?getNode(id):kind==='frame'?getFrame(id):getText(id);if(!obj)return;
-    snapshot();drag={kind,id,startX:point.x,startY:point.y,origX:obj.x,origY:obj.y,moved:false,pointerId};
-    selectObject(kind,id,{openInspector:false});
+    snapshot();drag={kind,id,startX:point.x,startY:point.y,origX:obj.x,origY:obj.y,moved:false,pointerId};state.selected={kind,id};
     try{canvas.setPointerCapture(pointerId)}catch(e){}
   }
-
   function startDrag(evt){
-    if(evt.button!==0)return;
-    evt.stopPropagation();
-    const g=evt.currentTarget,kind=g.dataset.kind,id=g.dataset.id;
-
-    // 第一個動作只負責選取：立即顯示藍色虛線框與屬性面板，絕不移動物件。
-    if(!isSelectedObject(kind,id)){
-      if(touchPending){clearTimeout(touchPending.timer);touchPending=null;}
-      selectObject(kind,id);
-      return;
-    }
-
-    const point=getSvgPoint(evt);
-    // 觸控裝置必須在「已選取」後，再次長按才進入拖曳，避免第一次輕觸誤移動。
+    if(evt.button!==0)return;evt.stopPropagation();
+    const g=evt.currentTarget,kind=g.dataset.kind,id=g.dataset.id,point=getSvgPoint(evt);
     if(evt.pointerType==='touch'&&state.meta?.touchLongPress!==false){
-      if(touchPending){clearTimeout(touchPending.timer);touchPending=null;}
+      state.selected={kind,id};redrawSelectionOnly();renderInspector();
       const pending={kind,id,point,startClientX:evt.clientX,startClientY:evt.clientY,pointerId:evt.pointerId};
-      pending.timer=setTimeout(()=>{
-        if(touchPending!==pending || !isSelectedObject(kind,id))return;
-        beginObjectDrag(kind,id,point,evt.pointerId);
-        touchPending=null;
-        showToast('已進入拖曳模式');
-      },360);
-      touchPending=pending;
-      return;
+      pending.timer=setTimeout(()=>{if(touchPending!==pending)return;beginObjectDrag(kind,id,point,evt.pointerId);touchPending=null;showToast('可拖曳移動');},360);
+      touchPending=pending;return;
     }
-
-    // 桌面裝置：物件已選取後，第二次按住即可拖曳。
     beginObjectDrag(kind,id,point,evt.pointerId);
   }
   function startRelationPointDrag(evt){
@@ -1075,7 +1046,7 @@
 
   function updateStatus(){
     const n=state.nodes.length,r=state.relations.length,risk=state.nodes.filter(x=>x.risk).length;
-    statusText.textContent=`V${APP_VERSION}｜人物／事件 ${n}｜關係 ${r}${risk?`｜風險標記 ${risk}`:''}｜網格 ${isGridEnabled()?'開':'關'}${state.meta?.anonymize?'｜匿名模式':''}｜點一下選取；再次按住拖曳`;
+    statusText.textContent=`V${APP_VERSION}｜人物／事件 ${n}｜關係 ${r}${risk?`｜風險標記 ${risk}`:''}｜網格 ${isGridEnabled()?'開':'關'}${state.meta?.anonymize?'｜匿名模式':''}｜點選可編輯`;
   }
 
   function populateRelationSelects(){
