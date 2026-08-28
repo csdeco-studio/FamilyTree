@@ -63,9 +63,17 @@
   .symbol-mini.diamond{transform:rotate(45deg)}
   .symbol-mini.diamond span{transform:rotate(-45deg)}
   .workspace-panel{position:relative;overflow:hidden;background:#e9edf1;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);min-height:0}
-  .workspace-toolbar{position:absolute;z-index:10;left:12px;top:12px;display:flex;gap:6px;padding:6px;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:11px;box-shadow:0 8px 24px rgba(31,41,55,.10)}
-  .shape-toolbar{position:absolute;z-index:11;left:12px;top:58px;display:grid;gap:8px;padding:8px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(31,41,55,.10);max-width:min(calc(100% - 24px),860px)}
+    .shape-toolbar{position:absolute;z-index:11;left:12px;top:12px;display:grid;gap:8px;padding:8px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(31,41,55,.10);max-width:min(calc(100% - 24px),980px)}
   .shape-toolbar::-webkit-scrollbar{display:none}
+  .shape-toolbar-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .shape-toolbar.collapsed{width:auto;max-width:calc(100% - 24px)}
+  .shape-toolbar.collapsed .shape-plugin-body{display:none}
+  .shape-plugin-body{display:grid;gap:8px}
+  .toolbar-collapse{margin-left:auto;border:1px solid #d4dee8;background:#f8fafc;border-radius:9px;padding:6px 10px;font-size:12px;font-weight:700;color:#486176;white-space:nowrap}
+  .toolbar-collapse:hover{background:#eef4f8;border-color:#afc1d0}
+  .view-tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .shape-divider{width:1px;align-self:stretch;background:#d8e0e8;border-radius:999px}
+
   .shape-catbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
   .shape-catbar::-webkit-scrollbar{display:none}
   .shape-cat{border:1px solid #d4dee8;background:#f8fafc;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;color:#486176;flex:0 0 auto;transition:all .16s ease}
@@ -141,7 +149,7 @@
     .workspace-panel{min-height:620px}
   }
   @media print{
-    header,.left-panel,.right-panel,.workspace-toolbar,.shape-toolbar,.mobile-actionbar,.workspace-status,#gridBackground{display:none!important}
+    header,.left-panel,.right-panel,.shape-toolbar,.mobile-actionbar,.workspace-status,#gridBackground{display:none!important}
     body,.app,.layout,.workspace-panel,#canvasWrap{background:#fff!important;height:auto!important;overflow:visible!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
     .layout{display:block!important}
     #canvas{width:100%!important;height:auto!important}
@@ -167,8 +175,7 @@
   .anonymized-indicator{font-size:13px;font-weight:700;fill:#9a6700}
   #nudgeStep{max-width:112px;border:1px solid var(--line);border-radius:7px;padding:5px;background:#fff;font-size:12px}
   @media (max-width:760px){
-    .workspace-toolbar{max-width:calc(100% - 24px);overflow-x:auto;white-space:nowrap}
-    .workspace-status{top:62px;max-width:calc(100% - 24px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .workspace-status{top:62px;max-width:calc(100% - 24px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   }
 
 .social-layout-card{border-color:#9eb4c6;background:#f3f8fb}
@@ -237,16 +244,18 @@
   .right-panel .panel-close{display:inline-flex;min-height:40px;align-items:center;padding:6px 10px}
 
   /* 畫布工具放大觸控區 */
-  .workspace-toolbar{left:8px;top:8px;max-width:calc(100% - 16px);padding:4px;gap:4px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
-  .shape-toolbar{left:8px;right:8px;top:auto;bottom:64px;max-width:none;padding:7px;gap:6px;box-shadow:0 10px 30px rgba(31,41,55,.18)}
+    .shape-toolbar{left:8px;right:8px;top:auto;bottom:64px;max-width:none;padding:7px;gap:6px;box-shadow:0 10px 30px rgba(31,41,55,.18)}
+  .shape-toolbar-head{gap:6px}
+  .toolbar-collapse{padding:7px 9px;font-size:11px}
+  .view-tools{gap:4px}
+  .shape-divider{display:none}
   .shape-catbar{gap:5px}
   .shape-cat{padding:7px 11px;font-size:11px}
   .shape-group{gap:5px}
   .shape-tool{min-height:42px;padding:7px 9px}
   .shape-tool strong{font-size:11px}
   .shape-tool .mini{width:22px;height:22px;flex-basis:22px}
-  .workspace-toolbar::-webkit-scrollbar{display:none}
-  .workspace-toolbar .btn{min-width:42px;min-height:42px;padding:7px 9px;flex:0 0 auto}
+    .view-tools .btn{min-width:42px;min-height:42px;padding:7px 9px;flex:0 0 auto}
   .workspace-status{left:8px;right:8px;bottom:122px;top:auto;max-width:none;font-size:11px;padding:5px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
   /* 手機底部常用操作列 */
@@ -412,6 +421,8 @@
         <div class="legal-notice" style="margin-top:9px"><strong>授權與著作權：</strong>本工具由 CSDeco 提供免費使用。使用者可免費使用本工具，並可保存、列印及運用自己製作的家系圖與文字產出。除法律另有規定或取得 CSDeco 授權外，不得重製或公開散布本工具之程式碼／完整網站檔案，不得將本工具或其修改版本販售、出租、收費提供、再授權，亦不得冒用 CSDeco 名義發布。使用者自行輸入之資料與產出內容，其權利不因使用本工具而移轉予 CSDeco。</div>
       </section>
       <section class="section">
+        <div class="version-card"><strong>版本 6.3.4</strong><span>2026-08-28</span><p>工具列插件化：新增「常用／人物／圖形／關係／更多」分頁，常用工具置頂，進階符號收進更多；並加入一鍵收合／展開。</p></div>
+        <div class="version-card"><strong>版本 6.3.3</strong><span>2026-08-28</span><p>合併縮放／網格與新增物件工具列，改為單一整合式工具列，減少遮擋並提升直覺操作。</p></div>
         <div class="version-card"><strong>版本 6.3.2</strong><span>2026-08-28</span><p>新增更多常用家系圖符號與快速關係按鈕，包含個案、已歿、流產／死產、婚姻／同居／分居／離婚、收養／寄養、雙胞胎、衝突與照顧等；人物備註改顯示於圖示右側。</p></div>
         <div class="version-card"><strong>版本 6.3.1</strong><span>2026-08-28</span><p>改為分類式畫布工具列，移除左側「新增物件」區塊，避免狀態列遮擋操作；並擴充文字轉家系圖常見稱呼辨識，如父親／案父／爸爸等。</p></div>
         <div class="version-card"><strong>版本 6.3.0</strong><span>2026-08-28</span><p>新增畫布內快速圖形工具列，可直接新增人物、文字、圈選範圍、服務單位橢圓、箭頭與關係線；桌機與手機都可直接使用，更直覺。</p></div>
@@ -422,54 +433,75 @@
     </aside>
 
     <section class="workspace-panel">
-      <div class="workspace-toolbar">
-        <button class="btn small" id="zoomOutBtn">－</button>
-        <button class="btn small" id="zoomResetBtn">100%</button>
-        <button class="btn small" id="zoomInBtn">＋</button>
-        <button class="btn small" id="fitBtn">適合畫面</button>
-        <button class="btn small" id="gridToggleBtn" type="button" aria-pressed="true" title="切換 20px 網格吸附">網格：開</button>
-      </div>
-      <div class="shape-toolbar" aria-label="快速圖形工具列">
-        <div class="shape-catbar" role="tablist" aria-label="新增物件分類">
-          <button class="shape-cat active" type="button" data-shape-cat="people">人物</button>
-          <button class="shape-cat" type="button" data-shape-cat="graphics">圖形</button>
-          <button class="shape-cat" type="button" data-shape-cat="relations">關係</button>
+      <div class="shape-toolbar" id="shapeToolbar" aria-label="快速圖形工具列">
+        <div class="shape-toolbar-head">
+          <div class="view-tools" aria-label="畫布控制工具">
+            <button class="btn small" id="zoomOutBtn">－</button>
+            <button class="btn small" id="zoomResetBtn">100%</button>
+            <button class="btn small" id="zoomInBtn">＋</button>
+            <button class="btn small" id="fitBtn">適合畫面</button>
+            <button class="btn small" id="gridToggleBtn" type="button" aria-pressed="true" title="切換 20px 網格吸附">網格：開</button>
+          </div>
+          <button class="toolbar-collapse" id="toolbarCollapseBtn" type="button" aria-expanded="true">收合工具</button>
         </div>
-        <div class="shape-group active" data-shape-group="people">
-          <button class="shape-tool" type="button" data-quick-node="male" title="新增男性"><span class="mini"></span><strong>男性</strong></button>
-          <button class="shape-tool" type="button" data-quick-node="female" title="新增女性"><span class="mini circle"></span><strong>女性</strong></button>
-          <button class="shape-tool" type="button" data-quick-node="unknown" title="新增性別未明"><span class="mini diamond"><em>?</em></span><strong>未明</strong></button>
-          <button class="shape-tool" type="button" data-quick-template="maleProband" title="新增男性個案"><span class="mini"></span><strong>男個案</strong></button>
-          <button class="shape-tool" type="button" data-quick-template="femaleProband" title="新增女性個案"><span class="mini circle"></span><strong>女個案</strong></button>
-          <button class="shape-tool" type="button" data-quick-template="maleDeceased" title="新增已歿男性"><span class="mini"></span><strong>已歿男</strong></button>
-          <button class="shape-tool" type="button" data-quick-template="femaleDeceased" title="新增已歿女性"><span class="mini circle"></span><strong>已歿女</strong></button>
-          <button class="shape-tool" type="button" data-quick-node="pregnancy" title="新增懷孕"><span class="legend-triangle outline"></span><strong>懷孕</strong></button>
-          <button class="shape-tool" type="button" data-quick-template="lossMiscarriage" title="新增流產"><span class="legend-triangle"></span><strong>流產</strong></button>
-          <button class="shape-tool" type="button" data-quick-template="lossStillbirth" title="新增死產"><span class="legend-triangle"></span><strong>死產</strong></button>
-        </div>
-        <div class="shape-group" data-shape-group="graphics">
-          <button class="shape-tool" type="button" data-quick-text title="新增文字"><span class="mini text">T</span><strong>文字</strong></button>
-          <button class="shape-tool" type="button" id="quickRegionBtn" data-quick-region title="畫筆圈選同住／家庭範圍"><span class="mini pen">✎</span><strong>圈選範圍</strong></button>
-          <button class="shape-tool" type="button" data-quick-ellipse title="新增醫院或服務單位橢圓"><span class="mini ellipse">院</span><strong>服務單位</strong></button>
-          <button class="shape-tool" type="button" data-quick-arrow title="新增自由箭頭"><span class="mini arrow">→</span><strong>箭頭</strong></button>
-        </div>
-        <div class="shape-group" data-shape-group="relations">
-          <button class="shape-tool" type="button" data-quick-relation-preset="partner|married" title="婚姻"><span class="mini link">—</span><strong>婚姻</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="partner|cohabiting" title="同居"><span class="mini link">≈</span><strong>同居</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="partner|separated" title="分居"><span class="mini link">／</span><strong>分居</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="partner|divorced" title="離婚"><span class="mini link">✕</span><strong>離婚</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="parent|biological" title="親生親子"><span class="mini link">┬</span><strong>親生</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="parent|adopted" title="收養親子"><span class="mini link">┄</span><strong>收養</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="parent|foster" title="寄養親子"><span class="mini link">⋯</span><strong>寄養</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="twins|identical" title="同卵雙胞胎"><span class="mini link">Y</span><strong>同卵雙胞胎</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="twins|fraternal" title="異卵雙胞胎"><span class="mini link">Y</span><strong>異卵雙胞胎</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="care" title="照顧／支持"><span class="mini link">→</span><strong>照顧／支持</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="close" title="親密關係"><span class="mini link">∥</span><strong>親密</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="conflict" title="衝突關係"><span class="mini link">⚡</span><strong>衝突</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="closeConflict" title="親密但衝突"><span class="mini link">≋</span><strong>親密衝突</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="cutoff" title="關係中斷"><span class="mini link">∥</span><strong>關係中斷</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation-preset="abuse|physical" title="施暴／受暴"><span class="mini link">!</span><strong>施暴／受暴</strong></button>
-          <button class="shape-tool" type="button" data-quick-relation title="自訂關係線"><span class="mini link">↔</span><strong>更多關係</strong></button>
+        <div class="shape-plugin-body" id="shapePluginBody">
+          <div class="shape-catbar" role="tablist" aria-label="新增物件分類">
+            <button class="shape-cat active" type="button" data-shape-cat="common">常用</button>
+            <button class="shape-cat" type="button" data-shape-cat="people">人物</button>
+            <button class="shape-cat" type="button" data-shape-cat="graphics">圖形</button>
+            <button class="shape-cat" type="button" data-shape-cat="relations">關係</button>
+            <button class="shape-cat" type="button" data-shape-cat="more">更多</button>
+          </div>
+          <div class="shape-group active" data-shape-group="common">
+            <button class="shape-tool" type="button" data-quick-node="male" title="新增男性"><span class="mini"></span><strong>男性</strong></button>
+            <button class="shape-tool" type="button" data-quick-node="female" title="新增女性"><span class="mini circle"></span><strong>女性</strong></button>
+            <button class="shape-tool" type="button" data-quick-template="maleProband" title="新增男性個案"><span class="mini"></span><strong>男個案</strong></button>
+            <button class="shape-tool" type="button" data-quick-template="femaleProband" title="新增女性個案"><span class="mini circle"></span><strong>女個案</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="partner|married" title="婚姻"><span class="mini link">—</span><strong>婚姻</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="parent|biological" title="親生親子"><span class="mini link">┬</span><strong>親子</strong></button>
+            <button class="shape-tool" type="button" data-quick-text title="新增文字"><span class="mini text">T</span><strong>文字</strong></button>
+            <button class="shape-tool" type="button" data-quick-region title="圈選同住／家庭範圍"><span class="mini pen">✎</span><strong>圈選</strong></button>
+            <button class="shape-tool" type="button" data-quick-ellipse title="新增服務單位"><span class="mini ellipse">院</span><strong>服務單位</strong></button>
+            <button class="shape-tool" type="button" data-quick-arrow title="新增自由箭頭"><span class="mini arrow">→</span><strong>箭頭</strong></button>
+          </div>
+          <div class="shape-group" data-shape-group="people">
+            <button class="shape-tool" type="button" data-quick-node="male"><span class="mini"></span><strong>男性</strong></button>
+            <button class="shape-tool" type="button" data-quick-node="female"><span class="mini circle"></span><strong>女性</strong></button>
+            <button class="shape-tool" type="button" data-quick-node="unknown"><span class="mini diamond"><em>?</em></span><strong>未明</strong></button>
+            <button class="shape-tool" type="button" data-quick-template="maleProband"><span class="mini"></span><strong>男個案</strong></button>
+            <button class="shape-tool" type="button" data-quick-template="femaleProband"><span class="mini circle"></span><strong>女個案</strong></button>
+            <button class="shape-tool" type="button" data-quick-template="maleDeceased"><span class="mini"></span><strong>已歿男</strong></button>
+            <button class="shape-tool" type="button" data-quick-template="femaleDeceased"><span class="mini circle"></span><strong>已歿女</strong></button>
+            <button class="shape-tool" type="button" data-quick-node="pregnancy"><span class="legend-triangle outline"></span><strong>懷孕</strong></button>
+            <button class="shape-tool" type="button" data-quick-template="lossMiscarriage"><span class="legend-triangle"></span><strong>流產</strong></button>
+            <button class="shape-tool" type="button" data-quick-template="lossStillbirth"><span class="legend-triangle"></span><strong>死產</strong></button>
+          </div>
+          <div class="shape-group" data-shape-group="graphics">
+            <button class="shape-tool" type="button" data-quick-text><span class="mini text">T</span><strong>文字</strong></button>
+            <button class="shape-tool" type="button" id="quickRegionBtn" data-quick-region><span class="mini pen">✎</span><strong>圈選範圍</strong></button>
+            <button class="shape-tool" type="button" data-quick-ellipse><span class="mini ellipse">院</span><strong>服務單位</strong></button>
+            <button class="shape-tool" type="button" data-quick-arrow><span class="mini arrow">→</span><strong>箭頭</strong></button>
+          </div>
+          <div class="shape-group" data-shape-group="relations">
+            <button class="shape-tool" type="button" data-quick-relation-preset="partner|married"><span class="mini link">—</span><strong>婚姻</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="partner|cohabiting"><span class="mini link">≈</span><strong>同居</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="partner|separated"><span class="mini link">／</span><strong>分居</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="partner|divorced"><span class="mini link">✕</span><strong>離婚</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="parent|biological"><span class="mini link">┬</span><strong>親生</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="care"><span class="mini link">→</span><strong>照顧／支持</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="close"><span class="mini link">∥</span><strong>親密</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="conflict"><span class="mini link">⚡</span><strong>衝突</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation title="更多關係"><span class="mini link">↔</span><strong>自訂</strong></button>
+          </div>
+          <div class="shape-group" data-shape-group="more">
+            <button class="shape-tool" type="button" data-quick-relation-preset="parent|adopted"><span class="mini link">┄</span><strong>收養</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="parent|foster"><span class="mini link">⋯</span><strong>寄養</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="twins|identical"><span class="mini link">Y</span><strong>同卵雙胞胎</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="twins|fraternal"><span class="mini link">Y</span><strong>異卵雙胞胎</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="closeConflict"><span class="mini link">≋</span><strong>親密衝突</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="cutoff"><span class="mini link">∥</span><strong>關係中斷</strong></button>
+            <button class="shape-tool" type="button" data-quick-relation-preset="abuse|physical"><span class="mini link">!</span><strong>施暴／受暴</strong></button>
+          </div>
         </div>
       </div>
       <div class="workspace-status" id="statusText">點一下選取；再次按住拖曳</div>
@@ -569,6 +601,8 @@
   <div class="dialog-body version-dialog-body">
     <p><strong>發布日期：</strong>2026-08-27</p>
     <ul>
+      <li><strong>V6.3.4 插件化工具列：</strong>新增「常用／人物／圖形／關係／更多」分頁，常用工具集中在第一頁，較少使用的進階符號收進「更多」；工具列可一鍵收合／展開，並記住目前狀態。</li>
+      <li><strong>V6.3.3 整合式工具列：</strong>將原本的縮放／適合畫面／網格工具列與人物、圖形、關係工具列合併為同一塊面板，減少重疊與遮擋，桌機與手機都更直覺。</li>
       <li><strong>V6.3.2 常用符號擴充與備註右側化：</strong>新增個案、已歿、流產／死產、婚姻／同居／分居／離婚、親生／收養／寄養、雙胞胎、衝突、親密、關係中斷、施暴與照顧等快速工具；人物備註改顯示在圖示右側，較貼近實務使用。</li>
       <li><strong>V6.3.1 分類工具列與文字辨識強化：</strong>將畫布新增工具改為「人物／圖形／關係」分類切換，移除左側新增物件區塊；狀態列改為不攔截點擊，並擴充文字輸入的常見稱呼辨識，如父親／案父／爸爸、母親／案母／媽媽、配偶／先生／太太／老公／老婆等。</li>
       <li><strong>V6.3.0 快速圖形工具列：</strong>在畫布內新增常用圖形工具列，可直接新增男性、女性、性別未明、文字、圈選範圍、服務單位橢圓、自由箭頭與關係線；手機版固定顯示在底部快捷列上方，提升直覺性與操作速度。</li>
@@ -651,7 +685,7 @@
   const toast = $('#toast');
 
   const GRID_SIZE = 20;
-  const APP_VERSION = '6.3.2';
+  const APP_VERSION = '6.3.4';
   const BUILD_DATE = '2026-07-28';
   const EXPORT_PADDING = 70;
 
@@ -680,7 +714,7 @@
   let persistTimer = null;
   let touchPending = null;
   let toolMode = null;
-  let activeShapeCategory = 'people';
+  let activeShapeCategory = 'common';
   let drawDraft = null;
 
   const uid = (prefix) => prefix + '_' + Math.random().toString(36).slice(2, 9);
@@ -2474,7 +2508,16 @@
   });
 
 
-  function setShapeCategory(cat='people'){
+  function setToolbarCollapsed(collapsed){
+    const toolbar=$('#shapeToolbar'),btn=$('#toolbarCollapseBtn');
+    if(!toolbar||!btn)return;
+    toolbar.classList.toggle('collapsed',!!collapsed);
+    btn.textContent=collapsed?'展開工具':'收合工具';
+    btn.setAttribute('aria-expanded',String(!collapsed));
+    try{localStorage.setItem('genogram-toolbar-collapsed',collapsed?'1':'0')}catch(e){}
+  }
+
+  function setShapeCategory(cat='common'){
     activeShapeCategory=cat;
     document.querySelectorAll('[data-shape-cat]').forEach(btn=>btn.classList.toggle('active',btn.dataset.shapeCat===cat));
     document.querySelectorAll('[data-shape-group]').forEach(group=>group.classList.toggle('active',group.dataset.shapeGroup===cat));
@@ -2487,8 +2530,9 @@
     if(targetId)setTimeout(()=>document.getElementById(targetId)?.scrollIntoView({behavior:'smooth',block:'start'}),80);
   }
   document.querySelectorAll('[data-shape-cat]').forEach(btn=>btn.addEventListener('click',()=>setShapeCategory(btn.dataset.shapeCat)));
+  $('#toolbarCollapseBtn')?.addEventListener('click',()=>setToolbarCollapsed(!$('#shapeToolbar').classList.contains('collapsed')));
   $('#mobileTextBtn')?.addEventListener('click',()=>openMobileTools('quickBuildSection'));
-  $('#mobileAddBtn')?.addEventListener('click',()=>{setShapeCategory('people');showToast('可從畫布上的分類工具列新增人物、圖形與關係');});
+  $('#mobileAddBtn')?.addEventListener('click',()=>{setToolbarCollapsed(false);setShapeCategory('common');showToast('已展開常用工具');});
   $('#mobileLayoutBtn')?.addEventListener('click',()=>$('#autoLayoutBtn').click());
   $('#mobileInspectorBtn')?.addEventListener('click',()=>{
     $('#leftPanel').classList.remove('open');
@@ -2498,7 +2542,8 @@
   $('#closeToolsBtn')?.addEventListener('click',()=>$('#leftPanel').classList.remove('open'));
   $('#inspectorToggleBtn').addEventListener('click',()=>{if(window.matchMedia('(max-width:760px)').matches)$('#leftPanel').classList.remove('open');$('#rightPanel').classList.toggle('open');});
   $('#closeInspectorBtn').addEventListener('click',()=>$('#rightPanel').classList.remove('open'));
-  setShapeCategory('people');
+  setShapeCategory('common');
+  try{setToolbarCollapsed(localStorage.getItem('genogram-toolbar-collapsed')==='1')}catch(e){setToolbarCollapsed(false)}
 
   document.addEventListener('keydown',evt=>{
     const tag=document.activeElement?.tagName;
