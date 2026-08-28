@@ -64,7 +64,27 @@
   .symbol-mini.diamond span{transform:rotate(-45deg)}
   .workspace-panel{position:relative;overflow:hidden;background:#e9edf1;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);min-height:0}
   .workspace-toolbar{position:absolute;z-index:10;left:12px;top:12px;display:flex;gap:6px;padding:6px;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:11px;box-shadow:0 8px 24px rgba(31,41,55,.10)}
-  .workspace-status{position:absolute;z-index:10;right:12px;top:12px;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.94);border:1px solid var(--line);font-size:12px;color:var(--muted)}
+  .shape-toolbar{position:absolute;z-index:11;left:12px;top:58px;display:grid;gap:8px;padding:8px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(31,41,55,.10);max-width:min(calc(100% - 24px),860px)}
+  .shape-toolbar::-webkit-scrollbar{display:none}
+  .shape-catbar{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .shape-catbar::-webkit-scrollbar{display:none}
+  .shape-cat{border:1px solid #d4dee8;background:#f8fafc;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;color:#486176;flex:0 0 auto;transition:all .16s ease}
+  .shape-cat.active{background:#355b7d;border-color:#355b7d;color:#fff;box-shadow:0 6px 16px rgba(53,91,125,.18)}
+  .shape-group{display:none;gap:6px;flex-wrap:wrap;align-items:stretch}
+  .shape-group.active{display:flex}
+  .shape-tool{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 9px;display:flex;align-items:center;gap:7px;min-height:40px;font-weight:700;color:#243746;flex:0 0 auto;transition:background .16s ease,border-color .16s ease,box-shadow .16s ease,transform .08s ease}
+  .shape-tool:hover{border-color:#8fa5b8;background:#f8fafc;box-shadow:0 5px 14px rgba(31,41,55,.07)}
+  .shape-tool:active{transform:translateY(1px) scale(.99)}
+  .shape-tool .mini{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border:2px solid #111;border-radius:0;background:#fff;font-size:12px;line-height:1;flex:0 0 24px}
+  .shape-tool .mini.circle{border-radius:50%}
+  .shape-tool .mini.diamond{transform:rotate(45deg);font-size:10px}
+  .shape-tool .mini.diamond em{transform:rotate(-45deg);font-style:normal}
+  .shape-tool .mini.text,.shape-tool .mini.pen,.shape-tool .mini.arrow,.shape-tool .mini.link{border:none;font-size:18px}
+  .shape-tool .mini.text{font-weight:800}
+  .shape-tool .mini.ellipse{border-radius:999px;font-size:11px}
+  .shape-tool strong{font-size:11px;white-space:nowrap}
+  .shape-tool.active-tool{background:#e8f0f6;border-color:#355b7d;color:#24445f;box-shadow:inset 0 0 0 1px rgba(53,91,125,.16)}
+  .workspace-status{position:absolute;z-index:9;right:12px;bottom:12px;padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.86);border:1px solid var(--line);font-size:12px;color:var(--muted);pointer-events:none;max-width:min(62vw,560px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   #canvasWrap{width:100%;height:100%;overflow:hidden;touch-action:none}
   #canvas{width:100%;height:100%;display:block;background:#fff}
   .field{display:grid;gap:5px}
@@ -121,7 +141,7 @@
     .workspace-panel{min-height:620px}
   }
   @media print{
-    header,.left-panel,.right-panel,.workspace-toolbar,.workspace-status,#gridBackground{display:none!important}
+    header,.left-panel,.right-panel,.workspace-toolbar,.shape-toolbar,.mobile-actionbar,.workspace-status,#gridBackground{display:none!important}
     body,.app,.layout,.workspace-panel,#canvasWrap{background:#fff!important;height:auto!important;overflow:visible!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
     .layout{display:block!important}
     #canvas{width:100%!important;height:auto!important}
@@ -218,9 +238,16 @@
 
   /* 畫布工具放大觸控區 */
   .workspace-toolbar{left:8px;top:8px;max-width:calc(100% - 16px);padding:4px;gap:4px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+  .shape-toolbar{left:8px;right:8px;top:auto;bottom:64px;max-width:none;padding:7px;gap:6px;box-shadow:0 10px 30px rgba(31,41,55,.18)}
+  .shape-catbar{gap:5px}
+  .shape-cat{padding:7px 11px;font-size:11px}
+  .shape-group{gap:5px}
+  .shape-tool{min-height:42px;padding:7px 9px}
+  .shape-tool strong{font-size:11px}
+  .shape-tool .mini{width:22px;height:22px;flex-basis:22px}
   .workspace-toolbar::-webkit-scrollbar{display:none}
   .workspace-toolbar .btn{min-width:42px;min-height:42px;padding:7px 9px;flex:0 0 auto}
-  .workspace-status{left:8px;right:auto;top:58px;max-width:calc(100% - 16px);font-size:11px;padding:6px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .workspace-status{left:8px;right:8px;bottom:122px;top:auto;max-width:none;font-size:11px;padding:5px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
   /* 手機底部常用操作列 */
   .mobile-actionbar{display:grid;grid-template-columns:repeat(4,1fr);position:absolute;z-index:30;left:8px;right:8px;bottom:8px;gap:5px;padding:6px;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(31,41,55,.18);backdrop-filter:blur(8px)}
@@ -288,10 +315,10 @@
         <details class="parser-help" open>
           <summary>文字輸入與出生排行說明</summary>
           <div class="hint parser-help-body">
-            <strong>基本輸入：</strong>每位主要成員建議各占一行，可使用全形或半形冒號、逗號、分號。<br><br>
+            <strong>基本輸入：</strong>每位主要成員建議各占一行，可使用全形或半形冒號、逗號、分號。常見稱呼如「父親／案父／爸爸」、「母親／案母／媽媽」、「配偶／先生／太太／老公／老婆」也可辨識。<br><br>
             <strong>① 個案的父母</strong><br>
-            可直接寫「父親」與「母親」，系統會建立為個案上一代。<br>
-            例如：父親：85歲，已歿／母親：82歲。<br><br>
+            可直接寫「父親／案父／爸爸／爸」與「母親／案母／媽媽／媽」，系統都會辨識為個案上一代。<br>
+            例如：父親：85歲，已歿／案母：82歲。<br><br>
             <strong>② 個案的兄弟姊妹</strong><br>
             可使用長兄、次兄、大姊、弟弟、妹妹等稱謂；若要明確表示個案在所有手足中的出生順序，建議每個人都加上「排行第X」，而且<strong>個案本人也要算在排行內</strong>。<br>
             例如：長兄：60歲，排行第1／個案：女性，58歲，排行第2／妹妹：54歲，排行第3。<br><br>
@@ -315,22 +342,6 @@
           <p class="hint">直接讀取目前可編輯的家系圖資料，轉成精簡紀錄、社工敘述或社工口語紀錄。此功能不是圖片辨識，不會上傳任何資料。</p>
           <div class="legal-notice" style="margin-top:9px"><strong>資料處理說明：</strong>人物、關係、備註與圖面轉文字內容均在目前瀏覽器本機處理；本工具不會自動將家系圖內容傳送至 CSDeco、AI 服務或其他第三方。使用共用或公用電腦時，請於使用後清除專案與瀏覽器網站資料。</div>
         </div>
-      </section>
-      <section class="section" id="addObjectSection">
-        <h3>新增物件</h3>
-        <div class="tool-grid">
-          <button class="tool-btn" data-add-node="male"><span class="symbol-mini"></span>男性</button>
-          <button class="tool-btn" data-add-node="female"><span class="symbol-mini circle"></span>女性</button>
-          <button class="tool-btn" data-add-node="unknown"><span class="symbol-mini diamond"><span>?</span></span>性別未明</button>
-          <button class="tool-btn" data-add-node="pregnancy"><span class="legend-triangle outline"></span>懷孕</button>
-          <button class="tool-btn" data-add-node="loss"><span class="legend-triangle"></span>流產／死產</button>
-          <button class="tool-btn" id="addTextBtn"><span style="font-weight:800;font-size:20px">T</span>文字</button>
-          <button class="tool-btn" id="drawRegionBtn"><span class="pen-symbol">✎</span>畫筆圈選範圍</button>
-          <button class="tool-btn" id="addEllipseBtn"><span class="ellipse-symbol">院</span>醫院／服務單位</button>
-          <button class="tool-btn" id="addArrowBtn"><span class="arrow-symbol">→</span>自由箭頭</button>
-          <button class="tool-btn" id="addRelationBtn"><span style="font-size:20px">↔</span>關係線</button>
-        </div>
-        <p class="hint tool-hint"><strong>畫筆操作：</strong>按下「畫筆圈選範圍」後，直接在畫布上按住拖曳圈住需要的成員；放開時會自動平滑並閉合，取代原本的矩形外框。</p>
       </section>
 
       <section class="section">
@@ -401,6 +412,9 @@
         <div class="legal-notice" style="margin-top:9px"><strong>授權與著作權：</strong>本工具由 CSDeco 提供免費使用。使用者可免費使用本工具，並可保存、列印及運用自己製作的家系圖與文字產出。除法律另有規定或取得 CSDeco 授權外，不得重製或公開散布本工具之程式碼／完整網站檔案，不得將本工具或其修改版本販售、出租、收費提供、再授權，亦不得冒用 CSDeco 名義發布。使用者自行輸入之資料與產出內容，其權利不因使用本工具而移轉予 CSDeco。</div>
       </section>
       <section class="section">
+        <div class="version-card"><strong>版本 6.3.2</strong><span>2026-08-28</span><p>新增更多常用家系圖符號與快速關係按鈕，包含個案、已歿、流產／死產、婚姻／同居／分居／離婚、收養／寄養、雙胞胎、衝突與照顧等；人物備註改顯示於圖示右側。</p></div>
+        <div class="version-card"><strong>版本 6.3.1</strong><span>2026-08-28</span><p>改為分類式畫布工具列，移除左側「新增物件」區塊，避免狀態列遮擋操作；並擴充文字轉家系圖常見稱呼辨識，如父親／案父／爸爸等。</p></div>
+        <div class="version-card"><strong>版本 6.3.0</strong><span>2026-08-28</span><p>新增畫布內快速圖形工具列，可直接新增人物、文字、圈選範圍、服務單位橢圓、箭頭與關係線；桌機與手機都可直接使用，更直覺。</p></div>
         <div class="version-card"><strong>版本 6.2.9</strong><span>2026-08-27</span><p>手機版改為畫布優先操作，工具與屬性使用下方抽屜，增加底部快速操作列並放大觸控區域。</p></div>
         <div class="version-card"><strong>版本 6.2.2</strong><span>2026-08-18</span><p>強化文字轉家系圖說明：明確區分同性別稱謂排行與全體出生排行，並補充父母、個案手足與子女的建議輸入方式。</p></div>
         <div class="version-card"><strong>版本 6.2.0</strong><span>2026-07-28</span><p>取消掃描底圖、圖片上傳、本機辨識與雲端 AI 判讀，保留家系圖雙向文字轉換；新增社工口語紀錄模式。</p></div>
@@ -415,10 +429,53 @@
         <button class="btn small" id="fitBtn">適合畫面</button>
         <button class="btn small" id="gridToggleBtn" type="button" aria-pressed="true" title="切換 20px 網格吸附">網格：開</button>
       </div>
+      <div class="shape-toolbar" aria-label="快速圖形工具列">
+        <div class="shape-catbar" role="tablist" aria-label="新增物件分類">
+          <button class="shape-cat active" type="button" data-shape-cat="people">人物</button>
+          <button class="shape-cat" type="button" data-shape-cat="graphics">圖形</button>
+          <button class="shape-cat" type="button" data-shape-cat="relations">關係</button>
+        </div>
+        <div class="shape-group active" data-shape-group="people">
+          <button class="shape-tool" type="button" data-quick-node="male" title="新增男性"><span class="mini"></span><strong>男性</strong></button>
+          <button class="shape-tool" type="button" data-quick-node="female" title="新增女性"><span class="mini circle"></span><strong>女性</strong></button>
+          <button class="shape-tool" type="button" data-quick-node="unknown" title="新增性別未明"><span class="mini diamond"><em>?</em></span><strong>未明</strong></button>
+          <button class="shape-tool" type="button" data-quick-template="maleProband" title="新增男性個案"><span class="mini"></span><strong>男個案</strong></button>
+          <button class="shape-tool" type="button" data-quick-template="femaleProband" title="新增女性個案"><span class="mini circle"></span><strong>女個案</strong></button>
+          <button class="shape-tool" type="button" data-quick-template="maleDeceased" title="新增已歿男性"><span class="mini"></span><strong>已歿男</strong></button>
+          <button class="shape-tool" type="button" data-quick-template="femaleDeceased" title="新增已歿女性"><span class="mini circle"></span><strong>已歿女</strong></button>
+          <button class="shape-tool" type="button" data-quick-node="pregnancy" title="新增懷孕"><span class="legend-triangle outline"></span><strong>懷孕</strong></button>
+          <button class="shape-tool" type="button" data-quick-template="lossMiscarriage" title="新增流產"><span class="legend-triangle"></span><strong>流產</strong></button>
+          <button class="shape-tool" type="button" data-quick-template="lossStillbirth" title="新增死產"><span class="legend-triangle"></span><strong>死產</strong></button>
+        </div>
+        <div class="shape-group" data-shape-group="graphics">
+          <button class="shape-tool" type="button" data-quick-text title="新增文字"><span class="mini text">T</span><strong>文字</strong></button>
+          <button class="shape-tool" type="button" id="quickRegionBtn" data-quick-region title="畫筆圈選同住／家庭範圍"><span class="mini pen">✎</span><strong>圈選範圍</strong></button>
+          <button class="shape-tool" type="button" data-quick-ellipse title="新增醫院或服務單位橢圓"><span class="mini ellipse">院</span><strong>服務單位</strong></button>
+          <button class="shape-tool" type="button" data-quick-arrow title="新增自由箭頭"><span class="mini arrow">→</span><strong>箭頭</strong></button>
+        </div>
+        <div class="shape-group" data-shape-group="relations">
+          <button class="shape-tool" type="button" data-quick-relation-preset="partner|married" title="婚姻"><span class="mini link">—</span><strong>婚姻</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="partner|cohabiting" title="同居"><span class="mini link">≈</span><strong>同居</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="partner|separated" title="分居"><span class="mini link">／</span><strong>分居</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="partner|divorced" title="離婚"><span class="mini link">✕</span><strong>離婚</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="parent|biological" title="親生親子"><span class="mini link">┬</span><strong>親生</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="parent|adopted" title="收養親子"><span class="mini link">┄</span><strong>收養</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="parent|foster" title="寄養親子"><span class="mini link">⋯</span><strong>寄養</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="twins|identical" title="同卵雙胞胎"><span class="mini link">Y</span><strong>同卵雙胞胎</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="twins|fraternal" title="異卵雙胞胎"><span class="mini link">Y</span><strong>異卵雙胞胎</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="care" title="照顧／支持"><span class="mini link">→</span><strong>照顧／支持</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="close" title="親密關係"><span class="mini link">∥</span><strong>親密</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="conflict" title="衝突關係"><span class="mini link">⚡</span><strong>衝突</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="closeConflict" title="親密但衝突"><span class="mini link">≋</span><strong>親密衝突</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="cutoff" title="關係中斷"><span class="mini link">∥</span><strong>關係中斷</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation-preset="abuse|physical" title="施暴／受暴"><span class="mini link">!</span><strong>施暴／受暴</strong></button>
+          <button class="shape-tool" type="button" data-quick-relation title="自訂關係線"><span class="mini link">↔</span><strong>更多關係</strong></button>
+        </div>
+      </div>
       <div class="workspace-status" id="statusText">點一下選取；再次按住拖曳</div>
       <div class="mobile-actionbar" aria-label="手機快速操作">
         <button class="mobile-action" id="mobileTextBtn" type="button"><span>✎</span>文字建圖</button>
-        <button class="mobile-action" id="mobileAddBtn" type="button"><span>＋</span>新增</button>
+        <button class="mobile-action" id="mobileAddBtn" type="button"><span>🧰</span>工具</button>
         <button class="mobile-action" id="mobileLayoutBtn" type="button"><span>⇅</span>自動排列</button>
         <button class="mobile-action" id="mobileInspectorBtn" type="button"><span>⚙</span>屬性</button>
       </div>
@@ -512,6 +569,9 @@
   <div class="dialog-body version-dialog-body">
     <p><strong>發布日期：</strong>2026-08-27</p>
     <ul>
+      <li><strong>V6.3.2 常用符號擴充與備註右側化：</strong>新增個案、已歿、流產／死產、婚姻／同居／分居／離婚、親生／收養／寄養、雙胞胎、衝突、親密、關係中斷、施暴與照顧等快速工具；人物備註改顯示在圖示右側，較貼近實務使用。</li>
+      <li><strong>V6.3.1 分類工具列與文字辨識強化：</strong>將畫布新增工具改為「人物／圖形／關係」分類切換，移除左側新增物件區塊；狀態列改為不攔截點擊，並擴充文字輸入的常見稱呼辨識，如父親／案父／爸爸、母親／案母／媽媽、配偶／先生／太太／老公／老婆等。</li>
+      <li><strong>V6.3.0 快速圖形工具列：</strong>在畫布內新增常用圖形工具列，可直接新增男性、女性、性別未明、文字、圈選範圍、服務單位橢圓、自由箭頭與關係線；手機版固定顯示在底部快捷列上方，提升直覺性與操作速度。</li>
       <li><strong>V6.2.9 手機操作最佳化：</strong>手機版改為畫布優先，快速建立與屬性編輯改成下方抽屜；新增「文字建圖／新增／自動排列／屬性」底部快速操作列，放大觸控按鈕，並取消手機點選物件後自動彈出屬性面板。</li>
       <li><strong>V6.2.8 賣場名稱調整：</strong>將右上方「贊助賣場」改為「支持工具｜前往賣場」，並改寫提示文字，清楚表明連結是前往購買 CSDeco 商品，而非公益捐款或勸募。</li>
       <li><strong>V6.2.7 隱私與授權整理：</strong>已實際移除掃描圖片、圖片辨識、Tesseract、外部 AI 與 Cloudflare 連線程式；家系圖資料僅於瀏覽器本機處理，不會自動上傳。另重新釐清免費使用、產出使用與程式散布限制。</li>
@@ -591,7 +651,7 @@
   const toast = $('#toast');
 
   const GRID_SIZE = 20;
-  const APP_VERSION = '6.2.7';
+  const APP_VERSION = '6.3.2';
   const BUILD_DATE = '2026-07-28';
   const EXPORT_PADDING = 70;
 
@@ -620,6 +680,7 @@
   let persistTimer = null;
   let touchPending = null;
   let toolMode = null;
+  let activeShapeCategory = 'people';
   let drawDraft = null;
 
   const uid = (prefix) => prefix + '_' + Math.random().toString(36).slice(2, 9);
@@ -792,6 +853,24 @@
     return n;
   }
 
+  function addNodeTemplate(kind='male'){
+    const presets={
+      male:{sex:'male'},
+      female:{sex:'female'},
+      unknown:{sex:'unknown'},
+      maleProband:{sex:'male',name:'個案',proband:true},
+      femaleProband:{sex:'female',name:'個案',proband:true},
+      maleDeceased:{sex:'male',deceased:true},
+      femaleDeceased:{sex:'female',deceased:true},
+      lossMiscarriage:{sex:'loss',lossType:'miscarriage',name:'流產'},
+      lossStillbirth:{sex:'loss',lossType:'stillbirth',name:'死產'},
+      lossAbortion:{sex:'loss',lossType:'abortion',name:'人工流產'}
+    };
+    const preset=presets[kind]||presets.unknown;
+    return addNode(preset.sex,preset);
+  }
+
+
   function addEllipse(){
     snapshot();
     const e=normalizeEllipse({x:700,y:360,width:280,height:100,text:'服務醫院／單位'});
@@ -805,6 +884,7 @@
   function setToolMode(mode){
     toolMode=toolMode===mode?null:mode;
     $('#drawRegionBtn')?.classList.toggle('active-tool',toolMode==='region');
+    $('#quickRegionBtn')?.classList.toggle('active-tool',toolMode==='region');
     canvas.classList.toggle('drawing-mode',toolMode==='region');
     updateStatus();
     showToast(toolMode==='region'?'畫筆已啟用：按住拖曳圈選同住／家庭範圍':'已關閉畫筆');
@@ -1404,9 +1484,13 @@
     }
 
     const typeCaption=n.sex==='loss'?lossTypeName(n.lossType):'';
-    const caption=[displayNodeName(n),typeCaption,displayNodeNote(n)].filter(Boolean).join('・');
+    const caption=[displayNodeName(n),typeCaption].filter(Boolean).join('・');
     if(caption){
       const txt=svgEl('text',{x:0,y:r+25,'font-size':16,'text-anchor':'middle',fill:'#111'});txt.textContent=caption;g.appendChild(txt);
+    }
+    const sideNote=displayNodeNote(n);
+    if(sideNote){
+      const noteTxt=svgEl('text',{x:r+14,y:6,'font-size':15,'text-anchor':'start',fill:'#111'});noteTxt.textContent=sideNote;g.appendChild(noteTxt);
     }
     g.addEventListener('pointerdown',startDrag);
     g.addEventListener('click',selectFromEvent);
@@ -1637,7 +1721,7 @@
           ${isPregnancy?`<div class="field"><label>孕週</label><input data-k="gestationWeeks" value="${esc(n.gestationWeeks)}" inputmode="numeric" placeholder="例如：20" /></div>`:`<div class="field"><label>年齡</label><input data-k="age" value="${esc(n.age)}" inputmode="numeric" placeholder="例如：80" /></div>`}
         </div>
         ${isLoss?`<div class="field"><label>流產／死產類型</label><select data-k="lossType"><option value="unknown" ${n.lossType==='unknown'?'selected':''}>未明</option><option value="miscarriage" ${n.lossType==='miscarriage'?'selected':''}>自然流產</option><option value="abortion" ${n.lossType==='abortion'?'selected':''}>人工流產</option><option value="stillbirth" ${n.lossType==='stillbirth'?'selected':''}>死產</option></select></div>`:''}
-        <div class="field"><label>備註</label><textarea data-k="note" placeholder="例如：在家照顧、主要照顧者">${esc(n.note)}</textarea></div>
+        <div class="field"><label>備註（顯示在圖示右側）</label><textarea data-k="note" placeholder="例如：在家照顧、主要照顧者、同住">${esc(n.note)}</textarea></div>
         <label class="check"><input type="checkbox" data-k="proband" ${n.proband?'checked':''}/> 案主／個案（雙框）</label>
         ${!isPregnancy&&!isLoss?`<label class="check"><input type="checkbox" data-k="deceased" ${n.deceased?'checked':''}/> 已歿（圖形內加叉）</label>`:''}
         <label class="check"><input type="checkbox" data-k="risk" ${n.risk?'checked':''}/> 高風險／需注意（紅色箭頭）</label>
@@ -1797,7 +1881,7 @@
 
   function updateStatus(){
     const n=state.nodes.length,r=state.relations.length,risk=state.nodes.filter(x=>x.risk).length,shapes=state.regions.length+state.ellipses.length+state.arrows.length;
-    statusText.textContent=toolMode==='region'?'畫筆模式｜按住拖曳圈選同住／家庭範圍，放開後自動平滑閉環':`V${APP_VERSION}｜人物／事件 ${n}｜關係 ${r}｜圖樣 ${shapes}${risk?`｜風險標記 ${risk}`:''}｜網格 ${isGridEnabled()?'開':'關'}${state.meta?.anonymize?'｜匿名模式':''}｜點一下選取；再次按住拖曳${window.matchMedia('(max-width:760px)').matches?'｜手機可用下方工具列':''}`;
+    statusText.textContent=toolMode==='region'?'畫筆模式：按住拖曳圈選範圍，放開後自動閉環':'人物 '+n+'｜關係 '+r+'｜圖樣 '+shapes+(risk?'｜風險 '+risk:'')+'｜網格 '+(isGridEnabled()?'開':'關')+(state.meta?.anonymize?'｜匿名':'')+'｜點一下選取，再按住拖曳';
   }
 
   function populateRelationSelects(){
@@ -1824,7 +1908,7 @@
     return '';
   }
   function isSiblingRole(head=''){
-    return /^(?:長兄|次兄|二兄|三兄|四兄|五兄|大哥|二哥|三哥|四哥|五哥|哥哥|兄|長姊|長姐|次姊|次姐|二姊|二姐|三姊|三姐|四姊|四姐|五姊|五姐|大姊|大姐|姐姐|姊姊|姊|姐|大弟|二弟|三弟|四弟|五弟|小弟|弟弟|弟|大妹|二妹|三妹|四妹|五妹|小妹|妹妹|妹)$/.test(head);
+    return /^(?:案兄|案姐|案姊|案弟|案妹|長兄|次兄|二兄|三兄|四兄|五兄|大哥|二哥|三哥|四哥|五哥|哥哥|哥|兄|長姊|長姐|次姊|次姐|二姊|二姐|三姊|三姐|四姊|四姐|五姊|五姐|大姊|大姐|姐姐|姊姊|姊|姐|大弟|二弟|三弟|四弟|五弟|小弟|弟弟|弟|大妹|二妹|三妹|四妹|五妹|小妹|妹妹|妹)$/.test(head);
   }
   function inferSex(label,text=''){
     if(/女兒|女|姊|姐|妹|妻|太太|母/.test(label))return'female';
@@ -1836,7 +1920,7 @@
   function normalizeQuickText(raw){return String(raw).replace(/\r/g,'').replace(/[；;]/g,'，').replace(/[，、]/g,'，').replace(/[：:]/g,'：').replace(/^\s*[•・●\-*]\s*/gm,'').trim();}
   function splitRoleLine(line){
     if(line.includes('：')){const [h,...r]=line.split('：');return [h.trim(),r.join('：').trim()];}
-    const roles=['個案','案主','服務對象','主要個案','父親','爸爸','母親','媽媽','父','母','配偶','丈夫','先生','太太','妻子','長兄','次兄','二兄','三兄','四兄','五兄','大哥','二哥','三哥','四哥','五哥','哥哥','兄','長姊','長姐','次姊','次姐','二姊','二姐','三姊','三姐','四姊','四姐','五姊','五姐','大姊','大姐','姐姐','姊姊','姊','姐','大弟','二弟','三弟','四弟','五弟','小弟','弟弟','弟','大妹','二妹','三妹','四妹','五妹','小妹','妹妹','妹','長男','長子','大兒子','長女','大女兒','次男','次子','二兒子','次女','二女兒','三男','三子','三女','四男','四女','五男','五女','六男','六女','七男','七女','八男','八女','九男','九女','么子','么女'];
+    const roles=['主要個案','服務對象','受服務者','案主本人','個案本人','個案','案主','本人','案父親','案母親','父親','母親','案父','案母','爸爸','媽媽','生父','生母','父','母','爸','媽','另一半','配偶','伴侶','丈夫','先生','太太','妻子','老公','老婆','妻','夫','案兄','案姐','案姊','案弟','案妹','長兄','次兄','二兄','三兄','四兄','五兄','大哥','二哥','三哥','四哥','五哥','哥哥','哥','兄','長姊','長姐','次姊','次姐','二姊','二姐','三姊','三姐','四姊','四姐','五姊','五姐','大姊','大姐','姐姐','姊姊','姊','姐','大弟','二弟','三弟','四弟','五弟','小弟','弟弟','弟','大妹','二妹','三妹','四妹','五妹','小妹','妹妹','妹','大兒子','二兒子','小兒子','兒子','大女兒','二女兒','小女兒','女兒','長男','長子','長女','次男','次子','次女','三男','三子','三女','四男','四女','五男','五女','六男','六女','七男','七女','八男','八女','九男','九女','么子','么女','兒','女'];
     const role=roles.find(x=>line.startsWith(x));if(role)return[role,line.slice(role.length).replace(/^\s*[，,]?\s*/,'')];return['',line];
   }
   function extractChildSpecs(text){
@@ -1883,26 +1967,27 @@
       const r=normalizeRelation({id:uid('r'),from:a.id,to:b.id,type,status:opts.status||'married',subtype:opts.subtype||(type==='parent'?'biological':''),label:opts.label||'',unionId:opts.unionId||''});
       relations.push(r);return r;
     };
-    const isChildRole=h=>/(長|大|次|二|三|四|五|六|七|八|九|么).*(男|子|女|兒)|^(長男|長女|次男|次女|三男|三女)/.test(h);
+    const isChildRole=h=>/^(?:長男|長子|大兒子|長女|大女兒|次男|次子|二兒子|次女|二女兒|三男|三子|三女|四男|四女|五男|五女|六男|六女|七男|七女|八男|八女|九男|九女|么子|么女|小兒子|小女兒|兒子|女兒|兒|女)$/.test(h)||/(長|大|次|二|三|四|五|六|七|八|九|么).*(男|子|女|兒)/.test(h);
     for(const original of lines){
       const [head,bodyRaw]=splitRoleLine(original),body=bodyRaw||'';let handled=false;
-      if(/個案|案主|服務對象|主要個案/.test(head||original)){
+      if(/個案|案主|服務對象|主要個案|受服務者|本人|案主本人|個案本人/.test(head||original)){
         const source=head?body:original,sex=inferSex(head,source);proband=newNode({name:'個案',sex,age:parseAge(source),birthOrder:parseBirthOrder(source,head),deceased:/已歿|死亡|過世/.test(source),proband:true,note:/在家照顧/.test(source)?'在家照顧':''});handled=true;
-      }else if(/^(父親|爸爸|父)$/.test(head)){
+      }else if(/^(父親|案父親|案父|爸爸|爸|父|生父)$/.test(head)){
         fatherText=body;father=newNode({name:'父親',sex:'male',age:parseAge(body),birthOrder:parseBirthOrder(body,head),deceased:/已歿|死亡|過世/.test(body),note:/未婚/.test(body)?'未婚':''});handled=true;
-      }else if(/^(母親|媽媽|母)$/.test(head)){
+      }else if(/^(母親|案母親|案母|媽媽|媽|母|生母)$/.test(head)){
         motherText=body;mother=newNode({name:'母親',sex:'female',age:parseAge(body),birthOrder:parseBirthOrder(body,head),deceased:/已歿|死亡|過世/.test(body),note:/未婚/.test(body)?'未婚':''});handled=true;
-      }else if(/^(配偶|丈夫|先生|太太|妻子)$/.test(head)){
-        const sex=head==='丈夫'||head==='先生'?'male':head==='太太'||head==='妻子'?'female':inferSex(head,body);spouse=newNode({name:'配偶',sex,age:parseAge(body),deceased:/已歿|死亡|過世/.test(body)});handled=true;
+      }else if(/^(配偶|伴侶|另一半|丈夫|先生|太太|妻子|老公|老婆|妻|夫)$/.test(head)){
+        const sex=/^(丈夫|先生|老公|夫)$/.test(head)?'male':/^(太太|妻子|老婆|妻)$/.test(head)?'female':inferSex(head,body);spouse=newNode({name:'配偶',sex,age:parseAge(body),deceased:/已歿|死亡|過世/.test(body)});handled=true;
       }else if(isSiblingRole(head)){
         const sex=inferSex(head,body),note=[/未婚/.test(body)?'未婚':'',/已婚/.test(body)?'已婚':''].filter(Boolean).join('，');
-        siblings.push(newNode({name:head,sex,age:parseAge(body),birthOrder:parseBirthOrder(body,head),deceased:/已歿|死亡|過世/.test(body),note}));handled=true;
+        const siblingName=({"大哥":"長兄","哥":"兄","大姐":"長姊","案姐":"姊","案姊":"姊","姊姊":"姊","案兄":"兄","案弟":"弟","案妹":"妹"}[head]||head);
+        siblings.push(newNode({name:siblingName,sex,age:parseAge(body),birthOrder:parseBirthOrder(body,head),deceased:/已歿|死亡|過世/.test(body),note}));handled=true;
       }else if(/懷孕/.test(head+body)){
         newNode({name:head||'懷孕',sex:'pregnancy',gestationWeeks:parseWeeks(body),note:body.replace(/懷孕|\d+\s*(?:週|周)/g,'').replace(/[，,]/g,' ').trim()});handled=true;
       }else if(/流產|死產/.test(head+body)){
         const lossType=/死產/.test(head+body)?'stillbirth':/人工/.test(head+body)?'abortion':/自然/.test(head+body)?'miscarriage':'unknown';newNode({name:head||lossTypeName(lossType),sex:'loss',lossType,note:body.replace(/自然流產|人工流產|流產|死產/g,'').replace(/[，,]/g,' ').trim()});handled=true;
       }else if(isChildRole(head)){
-        const sex=inferSex(head,body),child=newNode({name:head,sex,age:parseAge(body),birthOrder:parseBirthOrder(body,head),note:/未婚/.test(body)?'未婚':''});children.push(child);handled=true;
+        const sex=inferSex(head,body),childName=({"大兒子":"長子","二兒子":"次子","小兒子":"么子","兒子":"子","大女兒":"長女","二女兒":"次女","小女兒":"么女","女兒":"女"}[head]||head),child=newNode({name:childName,sex,age:parseAge(body),birthOrder:parseBirthOrder(body,head),note:/未婚/.test(body)?'未婚':''});children.push(child);handled=true;
         const count=parseMarriageCount(body),segments=marriageSegments(body,count),partners=[];
         for(let i=0;i<count;i++){
           const segment=segments[i]||(count===1?body:'');
@@ -2314,10 +2399,16 @@
   $('#parseBtn').addEventListener('click',()=>applyParsed($('#quickInput').value));
   $('#sampleBtn').addEventListener('click',()=>{$('#quickInput').value=`個案：女性，80歲，在家照顧\n配偶：男性，已歿\n長男：55歲，婚配三次，第一次配偶58歲，育有1子28歲，第二次無子女，第三次有1女16歲\n次女：50歲，未婚\n三女：48歲，已婚，育有一子(15歲)`;});
   $$('[data-add-node]').forEach(b=>b.addEventListener('click',()=>addNode(b.dataset.addNode)));
-  $('#drawRegionBtn').addEventListener('click',()=>setToolMode('region'));
-  $('#addEllipseBtn').addEventListener('click',addEllipse);
-  $('#addArrowBtn').addEventListener('click',addArrow);
-  $('#addTextBtn').addEventListener('click',addText);
+  $('#drawRegionBtn')?.addEventListener('click',()=>setToolMode('region'));
+  $('#addEllipseBtn')?.addEventListener('click',addEllipse);
+  $('#addArrowBtn')?.addEventListener('click',addArrow);
+  $('#addTextBtn')?.addEventListener('click',addText);
+  document.querySelectorAll('[data-quick-node]').forEach(b=>b.addEventListener('click',()=>addNodeTemplate(b.dataset.quickNode)));
+  document.querySelectorAll('[data-quick-template]').forEach(b=>b.addEventListener('click',()=>addNodeTemplate(b.dataset.quickTemplate)));
+  document.querySelectorAll('[data-quick-text]').forEach(b=>b.addEventListener('click',addText));
+  document.querySelectorAll('[data-quick-region]').forEach(b=>b.addEventListener('click',()=>setToolMode('region')));
+  document.querySelectorAll('[data-quick-ellipse]').forEach(b=>b.addEventListener('click',addEllipse));
+  document.querySelectorAll('[data-quick-arrow]').forEach(b=>b.addEventListener('click',addArrow));
   $('#autoLayoutBtn').addEventListener('click',()=>autoLayout(true));
   $('#undoBtn').addEventListener('click',undo);
   $('#redoBtn').addEventListener('click',redo);
@@ -2333,7 +2424,11 @@
   $('#fitBtn').addEventListener('click',fitContent);
 
   const relationDialog=$('#relationDialog');
-  $('#addRelationBtn').addEventListener('click',()=>{
+  document.querySelectorAll('[data-quick-relation]').forEach(b=>b.addEventListener('click',()=>{
+    if(state.nodes.length<2) return showToast('至少需要兩位人物');
+    populateRelationSelects();updateRelationDialogFields();relationDialog.showModal();
+  }));
+  $('#addRelationBtn')?.addEventListener('click',()=>{
     if(state.nodes.length<2) return showToast('至少需要兩位人物');
     populateRelationSelects();updateRelationDialogFields();relationDialog.showModal();
   });
@@ -2354,6 +2449,21 @@
       $('#relationSubtypeHint').textContent=config.hint;
     }
   }
+
+  function openRelationDialogPreset(type='partner', preset=''){
+    if(state.nodes.length<2) return showToast('至少需要兩位人物');
+    populateRelationSelects();
+    $('#relationType').value=type;
+    updateRelationDialogFields();
+    if(type==='partner' && preset) $('#partnerStatus').value=preset;
+    if(['parent','twins','abuse'].includes(type) && preset) $('#relationSubtype').value=preset;
+    relationDialog.showModal();
+  }
+
+  document.querySelectorAll('[data-quick-relation-preset]').forEach(b=>b.addEventListener('click',()=>{
+    const [type,preset='']=b.dataset.quickRelationPreset.split('|');
+    openRelationDialogPreset(type,preset);
+  }));
   $('#relationType').addEventListener('change',updateRelationDialogFields);
   $('#confirmRelationBtn').addEventListener('click',()=>{
     const from=$('#relationFrom').value,to=$('#relationTo').value;
@@ -2363,14 +2473,22 @@
     relationDialog.close();render();persist();
   });
 
+
+  function setShapeCategory(cat='people'){
+    activeShapeCategory=cat;
+    document.querySelectorAll('[data-shape-cat]').forEach(btn=>btn.classList.toggle('active',btn.dataset.shapeCat===cat));
+    document.querySelectorAll('[data-shape-group]').forEach(group=>group.classList.toggle('active',group.dataset.shapeGroup===cat));
+  }
+
   function openMobileTools(targetId=''){
     if(!window.matchMedia('(max-width:760px)').matches)return;
     $('#rightPanel').classList.remove('open');
     $('#leftPanel').classList.add('open');
     if(targetId)setTimeout(()=>document.getElementById(targetId)?.scrollIntoView({behavior:'smooth',block:'start'}),80);
   }
+  document.querySelectorAll('[data-shape-cat]').forEach(btn=>btn.addEventListener('click',()=>setShapeCategory(btn.dataset.shapeCat)));
   $('#mobileTextBtn')?.addEventListener('click',()=>openMobileTools('quickBuildSection'));
-  $('#mobileAddBtn')?.addEventListener('click',()=>openMobileTools('addObjectSection'));
+  $('#mobileAddBtn')?.addEventListener('click',()=>{setShapeCategory('people');showToast('可從畫布上的分類工具列新增人物、圖形與關係');});
   $('#mobileLayoutBtn')?.addEventListener('click',()=>$('#autoLayoutBtn').click());
   $('#mobileInspectorBtn')?.addEventListener('click',()=>{
     $('#leftPanel').classList.remove('open');
@@ -2380,6 +2498,7 @@
   $('#closeToolsBtn')?.addEventListener('click',()=>$('#leftPanel').classList.remove('open'));
   $('#inspectorToggleBtn').addEventListener('click',()=>{if(window.matchMedia('(max-width:760px)').matches)$('#leftPanel').classList.remove('open');$('#rightPanel').classList.toggle('open');});
   $('#closeInspectorBtn').addEventListener('click',()=>$('#rightPanel').classList.remove('open'));
+  setShapeCategory('people');
 
   document.addEventListener('keydown',evt=>{
     const tag=document.activeElement?.tagName;
