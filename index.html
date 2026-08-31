@@ -416,6 +416,7 @@
         <div class="legal-notice" style="margin-top:9px"><strong>授權與著作權：</strong>本工具由 CSDeco 提供免費使用。使用者可免費使用本工具，並可保存、列印及運用自己製作的家系圖與文字產出。除法律另有規定或取得 CSDeco 授權外，不得重製或公開散布本工具之程式碼／完整網站檔案，不得將本工具或其修改版本販售、出租、收費提供、再授權，亦不得冒用 CSDeco 名義發布。使用者自行輸入之資料與產出內容，其權利不因使用本工具而移轉予 CSDeco。</div>
       </section>
       <section class="section">
+        <div class="version-card"><strong>版本 6.3.8</strong><span>2026-08-31</span><p>同住成員自動圈選與直式側邊備註：文字建圖偵測到「同住」時，會把個案與同住成員圈在同一家庭範圍；人物左右側備註改以直式顯示。</p></div>
         <div class="version-card"><strong>版本 6.3.7</strong><span>2026-08-31</span><p>複雜親屬與社工敘述辨識：支援外甥／外甥女、姪子／姪女、孫子女、前段婚姻、婚姻段次、主要照顧／事務處理與常見居住、聯繫、職業備註。</p></div>
         <div class="version-card"><strong>版本 6.3.4</strong><span>2026-08-28</span><p>工具列插件化：新增「常用／人物／圖形／關係／更多」分頁，常用工具置頂，進階符號收進更多；並加入一鍵收合／展開。</p></div>
         <div class="version-card"><strong>版本 6.3.3</strong><span>2026-08-28</span><p>合併縮放／網格與新增物件工具列，改為單一整合式工具列，減少遮擋並提升直覺操作。</p></div>
@@ -593,10 +594,11 @@
 </dialog>
 
 <dialog id="versionDialog">
-  <div class="dialog-head">家系圖快速製作器 V6.3.7</div>
+  <div class="dialog-head">家系圖快速製作器 V6.3.8</div>
   <div class="dialog-body version-dialog-body">
     <p><strong>發布日期：</strong>2026-08-31</p>
     <ul>
+      <li><strong>V6.3.8 同住圈選與直式側邊備註：</strong>文字建圖偵測到人物備註含「同住」時，自動將個案與同住成員以家庭範圍圈選；人物側邊備註改採直式排列，並依人物所在畫面左右側自動放到較不遮擋的一邊。</li>
       <li><strong>V6.3.7 複雜親屬與社工敘述辨識：</strong>新增外甥／外甥女、姪子／姪女、孫子女、前段婚姻與婚姻段次定位；可理解「案二妹／第一段婚姻：育有3女2子，其中次子已歿」等寫法，並把同住、無聯繫、主要照顧、事務處理、職業與居住地整理成備註。</li>
       <li><strong>V6.3.4 插件化工具列：</strong>新增「常用／人物／圖形／關係／更多」分頁，常用工具集中在第一頁，較少使用的進階符號收進「更多」；工具列可一鍵收合／展開，並記住目前狀態。</li>
       <li><strong>V6.3.3 整合式工具列：</strong>將原本的縮放／適合畫面／網格工具列與人物、圖形、關係工具列合併為同一塊面板，減少重疊與遮擋，桌機與手機都更直覺。</li>
@@ -682,7 +684,7 @@
   const toast = $('#toast');
 
   const GRID_SIZE = 20;
-  const APP_VERSION = '6.3.7';
+  const APP_VERSION = '6.3.8';
   const BUILD_DATE = '2026-07-28';
   const EXPORT_PADDING = 70;
 
@@ -1521,7 +1523,14 @@
     }
     const sideNote=displayNodeNote(n);
     if(sideNote){
-      const noteTxt=svgEl('text',{x:r+14,y:6,'font-size':15,'text-anchor':'start',fill:'#111'});noteTxt.textContent=sideNote;g.appendChild(noteTxt);
+      const noteParts=String(sideNote).split(/[；;\n]+/).map(s=>s.trim()).filter(Boolean);
+      const placeLeft=n.x>700;
+      const baseX=placeLeft?(-r-16):(r+16);
+      const step=18*(placeLeft?-1:1);
+      noteParts.slice(0,5).forEach((part,i)=>{
+        const noteTxt=svgEl('text',{x:baseX+step*i,y:-r,'font-size':15,'text-anchor':'start',fill:'#111','writing-mode':'vertical-rl','text-orientation':'upright','pointer-events':'none'});
+        noteTxt.textContent=part;g.appendChild(noteTxt);
+      });
     }
     g.addEventListener('pointerdown',startDrag);
     g.addEventListener('click',selectFromEvent);
@@ -1752,7 +1761,7 @@
           ${isPregnancy?`<div class="field"><label>孕週</label><input data-k="gestationWeeks" value="${esc(n.gestationWeeks)}" inputmode="numeric" placeholder="例如：20" /></div>`:`<div class="field"><label>年齡</label><input data-k="age" value="${esc(n.age)}" inputmode="numeric" placeholder="例如：80" /></div>`}
         </div>
         ${isLoss?`<div class="field"><label>流產／死產類型</label><select data-k="lossType"><option value="unknown" ${n.lossType==='unknown'?'selected':''}>未明</option><option value="miscarriage" ${n.lossType==='miscarriage'?'selected':''}>自然流產</option><option value="abortion" ${n.lossType==='abortion'?'selected':''}>人工流產</option><option value="stillbirth" ${n.lossType==='stillbirth'?'selected':''}>死產</option></select></div>`:''}
-        <div class="field"><label>備註（顯示在圖示右側）</label><textarea data-k="note" placeholder="例如：在家照顧、主要照顧者、同住">${esc(n.note)}</textarea></div>
+        <div class="field"><label>備註（顯示於人物左右側，採直式）</label><textarea data-k="note" placeholder="例如：在家照顧、主要照顧者、同住">${esc(n.note)}</textarea></div>
         <label class="check"><input type="checkbox" data-k="proband" ${n.proband?'checked':''}/> 案主／個案（雙框）</label>
         ${!isPregnancy&&!isLoss?`<label class="check"><input type="checkbox" data-k="deceased" ${n.deceased?'checked':''}/> 已歿（圖形內加叉）</label>`:''}
         <label class="check"><input type="checkbox" data-k="risk" ${n.risk?'checked':''}/> 高風險／需注意（紅色箭頭）</label>
@@ -2133,10 +2142,24 @@
     nodes.forEach(n=>delete n._claimedByText);return{nodes,relations,warnings,total:lines.length};
   }
   function getTempNode(nodes,id){return nodes.find(n=>n.id===id)}
+  function autoCohabitationRegion(){
+    const proband=state.nodes.find(n=>n.proband);
+    if(!proband)return;
+    const cohabitants=state.nodes.filter(n=>n.id!==proband.id&&/同住/.test(n.note||''));
+    if(!cohabitants.length)return;
+    const members=[proband,...cohabitants];
+    const paddingX=46,paddingY=54;
+    const minX=Math.min(...members.map(n=>n.x-n.size/2))-paddingX;
+    const maxX=Math.max(...members.map(n=>n.x+n.size/2))+paddingX;
+    const minY=Math.min(...members.map(n=>n.y-n.size/2))-paddingY;
+    const maxY=Math.max(...members.map(n=>n.y+n.size/2))+paddingY;
+    const region=normalizeRegion({points:roundedRectRegionPoints({x:minX,y:minY,width:Math.max(150,maxX-minX),height:Math.max(120,maxY-minY)}),label:'同住',strokeWidth:2.2});
+    state.regions.push(region);
+  }
   function applyParsed(raw){
     const parsed=parseQuickInput(raw),report=$('#parseReport');
     if(!parsed.nodes.length){report.textContent='未辨識到人物資料。請參考輸入格式範例。';report.className='parse-report show warning';return showToast('沒有辨識到人物資料');}
-    snapshot();state=defaultState();state.nodes=parsed.nodes;state.relations=parsed.relations;autoLayout(false);render();persist();syncMetaControls();
+    snapshot();state=defaultState();state.nodes=parsed.nodes;state.relations=parsed.relations;autoLayout(false);autoCohabitationRegion();render();persist();syncMetaControls();
     if(parsed.warnings.length){report.innerHTML=`已建立 ${parsed.nodes.length} 個人物／事件、${parsed.relations.length} 條關係。<br>未辨識：${parsed.warnings.map(esc).join('；')}`;report.className='parse-report show warning';showToast('已產生，部分句子需手動確認');}
     else{report.textContent=`已辨識 ${parsed.total} 行，建立 ${parsed.nodes.length} 個人物／事件與 ${parsed.relations.length} 條關係。`;report.className='parse-report show';showToast('已產生家系圖，可繼續拖曳與編輯');}
   }
