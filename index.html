@@ -417,6 +417,7 @@
         <div class="legal-notice" style="margin-top:9px"><strong>授權與著作權：</strong>本工具由 CSDeco 提供免費使用。使用者可免費使用本工具，並可保存、列印及運用自己製作的家系圖與文字產出。除法律另有規定或取得 CSDeco 授權外，不得重製或公開散布本工具之程式碼／完整網站檔案，不得將本工具或其修改版本販售、出租、收費提供、再授權，亦不得冒用 CSDeco 名義發布。使用者自行輸入之資料與產出內容，其權利不因使用本工具而移轉予 CSDeco。</div>
       </section>
       <section class="section">
+        <div class="version-card"><strong>版本 6.4.0</strong><span>2026-08-31</span><p>重寫手足長幼排序：哥哥／姊姊一定排在個案之前，弟弟／妹妹一定排在個案之後；同側再依明確排行、年齡與大／二／三等稱謂排序，避免「大弟」被誤當成全家排行第一。</p></div>
         <div class="version-card"><strong>版本 6.3.9</strong><span>2026-08-31</span><p>修正長幼排序與畫布平移：同一父母下的手足會優先依明確排行、年齡與稱謂由長至幼排列；桌機可直接按住畫布空白處拖曳移動畫面。</p></div>
         <div class="version-card"><strong>版本 6.3.8</strong><span>2026-08-31</span><p>同住成員自動圈選與直式側邊備註：文字建圖偵測到「同住」時，會把個案與同住成員圈在同一家庭範圍；人物左右側備註改以直式顯示。</p></div>
         <div class="version-card"><strong>版本 6.3.7</strong><span>2026-08-31</span><p>複雜親屬與社工敘述辨識：支援外甥／外甥女、姪子／姪女、孫子女、前段婚姻、婚姻段次、主要照顧／事務處理與常見居住、聯繫、職業備註。</p></div>
@@ -600,6 +601,7 @@
   <div class="dialog-body version-dialog-body">
     <p><strong>發布日期：</strong>2026-08-31</p>
     <ul>
+      <li><strong>V6.4.0 手足語意排序重寫：</strong>修正「大哥」與「大弟」都被視為「大＝第一」的問題。現在會先理解稱謂方向：兄／哥／姊／姐屬個案年長手足，個案居中，弟／妹屬個案年幼手足；同一群內再比較排行、年齡與大／二／三等次序。</li>
       <li><strong>V6.3.9 長幼排序與畫布平移修正：</strong>同一父母／婚姻線下的手足，排序時不再被配偶年齡干擾，會優先依「排行第X」、年齡由大到小、最後才參考長／次／三／么等稱謂；桌機與手機皆可直接按住畫布空白處拖曳平移。</li>
       <li><strong>V6.3.8 同住圈選與直式側邊備註：</strong>文字建圖偵測到人物備註含「同住」時，自動將個案與同住成員以家庭範圍圈選；人物側邊備註改採直式排列，並依人物所在畫面左右側自動放到較不遮擋的一邊。</li>
       <li><strong>V6.3.7 複雜親屬與社工敘述辨識：</strong>新增外甥／外甥女、姪子／姪女、孫子女、前段婚姻與婚姻段次定位；可理解「案二妹／第一段婚姻：育有3女2子，其中次子已歿」等寫法，並把同住、無聯繫、主要照顧、事務處理、職業與居住地整理成備註。</li>
@@ -687,7 +689,7 @@
   const toast = $('#toast');
 
   const GRID_SIZE = 20;
-  const APP_VERSION = '6.3.9';
+  const APP_VERSION = '6.4.0';
   const BUILD_DATE = '2026-07-28';
   const EXPORT_PADDING = 70;
 
@@ -1214,15 +1216,76 @@
     return {x:anchor.x,y:anchor.y};
   }
 
+  function ordinalPrefixScore(name=''){
+    const map=[['長',1],['大',1],['次',2],['二',2],['三',3],['四',4],['五',5],['六',6],['七',7],['八',8],['九',9],['十',10],['么',99],['小',99]];
+    for(const [key,value] of map){if(String(name).startsWith(key))return value;}
+    return 50;
+  }
+
+  function siblingRoleMeta(n){
+    if(!n)return{group:null,ordinal:50};
+    if(n.proband)return{group:1,ordinal:0};
+    const name=String(n.name||'').replace(/^案/,'').replace(/\s.*$/,'');
+    // 哥、兄、姊、姐：一定比個案年長。
+    if(/(?:兄|哥|姊|姐)$/.test(name)){
+      return{group:0,ordinal:ordinalPrefixScore(name)};
+    }
+    // 弟、妹：一定比個案年幼。「大弟」只是弟弟中的老大，不是全家老大。
+    if(/(?:弟|妹)$/.test(name)){
+      return{group:2,ordinal:ordinalPrefixScore(name)};
+    }
+    return{group:null,ordinal:ordinalPrefixScore(name)};
+  }
+
   function birthOrderScore(n){
     const explicit=Number(n?.birthOrder);
     if(Number.isFinite(explicit)&&explicit>0)return explicit;
     const age=Number(n?.age);
     if(Number.isFinite(age)&&age>0)return 1000-age;
+    const role=siblingRoleMeta(n);
+    if(role.group===0)return 2000+role.ordinal;
+    if(role.group===1)return 2500;
+    if(role.group===2)return 3000+role.ordinal;
     const name=n?.name||'';
-    const map=[['長',1],['大',1],['次',2],['二',2],['三',3],['四',4],['五',5],['六',6],['七',7],['八',8],['九',9],['么',10],['小',10]];
-    for(const [key,value] of map){if(name.startsWith(key))return 2000+value;}
-    return 3000;
+    const ord=ordinalPrefixScore(name);
+    if(ord!==50)return 4000+ord;
+    return 5000;
+  }
+
+  function compareSiblingFamilyMembers(a,b){
+    if(!a||!b)return 0;
+
+    const aExplicit=Number(a.birthOrder),bExplicit=Number(b.birthOrder);
+    if(Number.isFinite(aExplicit)&&aExplicit>0&&Number.isFinite(bExplicit)&&bExplicit>0&&aExplicit!==bExplicit){
+      return aExplicit-bExplicit;
+    }
+
+    const ar=siblingRoleMeta(a),br=siblingRoleMeta(b);
+
+    // 這個判斷比年齡更早：若稱謂已明確表示「哥 vs 弟」，
+    // 即使其中一人沒有年齡，也不能讓缺值造成反向排列。
+    if(ar.group!==null&&br.group!==null&&ar.group!==br.group){
+      return ar.group-br.group;
+    }
+
+    const aAge=Number(a.age),bAge=Number(b.age);
+    if(Number.isFinite(aAge)&&aAge>0&&Number.isFinite(bAge)&&bAge>0&&aAge!==bAge){
+      return bAge-aAge;
+    }
+
+    // 同為哥哥群、姊姊群、弟弟群或妹妹群時，看「大、二、三…」。
+    if(ar.group!==null&&ar.group===br.group&&ar.ordinal!==br.ordinal){
+      return ar.ordinal-br.ordinal;
+    }
+
+    // 只有一方有明確出生排行時，作為次要參考。
+    if(Number.isFinite(aExplicit)&&aExplicit>0 && !(Number.isFinite(bExplicit)&&bExplicit>0))return -1;
+    if(Number.isFinite(bExplicit)&&bExplicit>0 && !(Number.isFinite(aExplicit)&&aExplicit>0))return 1;
+
+    // 最後才回到一般排序與原始輸入順序。
+    const generic=birthOrderScore(a)-birthOrderScore(b);
+    if(generic)return generic;
+    return state.nodes.indexOf(a)-state.nodes.indexOf(b);
   }
 
   function repairMissingCoParentsByGeometry(){
@@ -2280,21 +2343,20 @@
         const entries=comp.members
           .map(n=>({n,key:memberParentSignature(n)}))
           .filter(x=>x.key);
-        if(!entries.length)return{key:'',score:compBirthOrder(comp)};
+        if(!entries.length)return{key:'',score:compBirthOrder(comp),node:null};
         entries.sort((a,b)=>
           (familyFreq.get(b.key)||0)-(familyFreq.get(a.key)||0) ||
-          birthOrderScore(a.n)-birthOrderScore(b.n)
+          compareSiblingFamilyMembers(a.n,b.n)
         );
-        return{key:entries[0].key,score:birthOrderScore(entries[0].n)};
+        return{key:entries[0].key,score:birthOrderScore(entries[0].n),node:entries[0].n};
       };
 
       row.sort((a,b)=>{
         const fa=familyInfo(a),fb=familyInfo(b);
         if(fa.key&&fa.key===fb.key){
-          return fa.score-fb.score ||
-            a.members.map(n=>n.name||'').join('').localeCompare(
-              b.members.map(n=>n.name||'').join(''),'zh-Hant'
-            );
+          const familyOrder=compareSiblingFamilyMembers(fa.node,fb.node);
+          if(familyOrder)return familyOrder;
+          return state.nodes.indexOf(fa.node)-state.nodes.indexOf(fb.node);
         }
         const ax=desiredParentCenter(a),bx=desiredParentCenter(b);
         if(ax!==null&&bx!==null&&Math.abs(ax-bx)>24)return ax-bx;
