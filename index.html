@@ -94,7 +94,8 @@
   .shape-tool.active-tool{background:#e8f0f6;border-color:#355b7d;color:#24445f;box-shadow:inset 0 0 0 1px rgba(53,91,125,.16)}
   .workspace-status{position:absolute;z-index:9;right:12px;bottom:12px;padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.86);border:1px solid var(--line);font-size:12px;color:var(--muted);pointer-events:none;max-width:min(62vw,560px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   #canvasWrap{width:100%;height:100%;overflow:hidden;touch-action:none}
-  #canvas{width:100%;height:100%;display:block;background:#fff}
+  #canvas{width:100%;height:100%;display:block;background:#fff;cursor:grab}
+  #canvas.is-panning{cursor:grabbing}
   .field{display:grid;gap:5px}
   .field label{font-size:12px;color:var(--muted);font-weight:600}
   .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;background:#fff;min-height:auto}
@@ -416,6 +417,7 @@
         <div class="legal-notice" style="margin-top:9px"><strong>授權與著作權：</strong>本工具由 CSDeco 提供免費使用。使用者可免費使用本工具，並可保存、列印及運用自己製作的家系圖與文字產出。除法律另有規定或取得 CSDeco 授權外，不得重製或公開散布本工具之程式碼／完整網站檔案，不得將本工具或其修改版本販售、出租、收費提供、再授權，亦不得冒用 CSDeco 名義發布。使用者自行輸入之資料與產出內容，其權利不因使用本工具而移轉予 CSDeco。</div>
       </section>
       <section class="section">
+        <div class="version-card"><strong>版本 6.3.9</strong><span>2026-08-31</span><p>修正長幼排序與畫布平移：同一父母下的手足會優先依明確排行、年齡與稱謂由長至幼排列；桌機可直接按住畫布空白處拖曳移動畫面。</p></div>
         <div class="version-card"><strong>版本 6.3.8</strong><span>2026-08-31</span><p>同住成員自動圈選與直式側邊備註：文字建圖偵測到「同住」時，會把個案與同住成員圈在同一家庭範圍；人物左右側備註改以直式顯示。</p></div>
         <div class="version-card"><strong>版本 6.3.7</strong><span>2026-08-31</span><p>複雜親屬與社工敘述辨識：支援外甥／外甥女、姪子／姪女、孫子女、前段婚姻、婚姻段次、主要照顧／事務處理與常見居住、聯繫、職業備註。</p></div>
         <div class="version-card"><strong>版本 6.3.4</strong><span>2026-08-28</span><p>工具列插件化：新增「常用／人物／圖形／關係／更多」分頁，常用工具置頂，進階符號收進更多；並加入一鍵收合／展開。</p></div>
@@ -598,6 +600,7 @@
   <div class="dialog-body version-dialog-body">
     <p><strong>發布日期：</strong>2026-08-31</p>
     <ul>
+      <li><strong>V6.3.9 長幼排序與畫布平移修正：</strong>同一父母／婚姻線下的手足，排序時不再被配偶年齡干擾，會優先依「排行第X」、年齡由大到小、最後才參考長／次／三／么等稱謂；桌機與手機皆可直接按住畫布空白處拖曳平移。</li>
       <li><strong>V6.3.8 同住圈選與直式側邊備註：</strong>文字建圖偵測到人物備註含「同住」時，自動將個案與同住成員以家庭範圍圈選；人物側邊備註改採直式排列，並依人物所在畫面左右側自動放到較不遮擋的一邊。</li>
       <li><strong>V6.3.7 複雜親屬與社工敘述辨識：</strong>新增外甥／外甥女、姪子／姪女、孫子女、前段婚姻與婚姻段次定位；可理解「案二妹／第一段婚姻：育有3女2子，其中次子已歿」等寫法，並把同住、無聯繫、主要照顧、事務處理、職業與居住地整理成備註。</li>
       <li><strong>V6.3.4 插件化工具列：</strong>新增「常用／人物／圖形／關係／更多」分頁，常用工具集中在第一頁，較少使用的進階符號收進「更多」；工具列可一鍵收合／展開，並記住目前狀態。</li>
@@ -684,7 +687,7 @@
   const toast = $('#toast');
 
   const GRID_SIZE = 20;
-  const APP_VERSION = '6.3.8';
+  const APP_VERSION = '6.3.9';
   const BUILD_DATE = '2026-07-28';
   const EXPORT_PADDING = 70;
 
@@ -1705,20 +1708,54 @@
         else{obj.x=drag.origX+dx;obj.y=drag.origY+dy;}
         refreshVisual(drag.kind,drag.id,{relations:drag.kind==='node',meta:drag.kind==='node'});
       }
-    }else if(pan){const dx=evt.clientX-pan.x,dy=evt.clientY-pan.y,vb=canvas.viewBox.baseVal;vb.x=pan.vx-dx/vb.width*1400;vb.y=pan.vy-dy/vb.height*900;}
+    }else if(pan){
+      const dx=evt.clientX-pan.x,dy=evt.clientY-pan.y,vb=canvas.viewBox.baseVal;
+      vb.x=pan.vx-dx*(pan.vw/pan.rectW);
+      vb.y=pan.vy-dy*(pan.vh/pan.rectH);
+    }
   });
 
   canvas.addEventListener('pointerup',evt=>{
     if(drawDraft&&evt.pointerId===drawDraft.pointerId){finishRegionDrawing();try{canvas.releasePointerCapture(evt.pointerId)}catch(e){}return;}
     if(touchPending&&evt.pointerId===touchPending.pointerId){clearTimeout(touchPending.timer);touchPending=null;renderInspector();if(window.matchMedia('(min-width:761px) and (max-width:1080px)').matches)$('#rightPanel').classList.add('open');}
-    if(drag){persist();drag=null;}pan=null;try{canvas.releasePointerCapture(evt.pointerId)}catch(e){}
+    if(drag){persist();drag=null;}
+    pan=null;canvas.classList.remove('is-panning');
+    try{canvas.releasePointerCapture(evt.pointerId)}catch(e){}
   });
-  canvas.addEventListener('pointercancel',evt=>{if(drawDraft){drawDraft=null;redrawSelectionOnly();}if(touchPending){clearTimeout(touchPending.timer);touchPending=null;}drag=null;pan=null;});
+  canvas.addEventListener('pointercancel',evt=>{
+    if(drawDraft){drawDraft=null;redrawSelectionOnly();}
+    if(touchPending){clearTimeout(touchPending.timer);touchPending=null;}
+    drag=null;pan=null;canvas.classList.remove('is-panning');
+  });
 
   canvas.addEventListener('pointerdown',evt=>{
-    if(toolMode==='region')return;const isCanvasBackground=evt.target===canvas||(evt.target.tagName==='rect'&&evt.target.parentElement===canvas);
-    if(isCanvasBackground){state.selected=null;redrawSelectionOnly();renderInspector();}
-    if(evt.button===1||evt.altKey||(evt.pointerType==='touch'&&isCanvasBackground)){const vb=canvas.viewBox.baseVal;pan={x:evt.clientX,y:evt.clientY,vx:vb.x,vy:vb.y};try{canvas.setPointerCapture(evt.pointerId)}catch(e){}}
+    if(toolMode==='region')return;
+    const isCanvasBackground=evt.target===canvas||(evt.target.tagName==='rect'&&evt.target.parentElement===canvas);
+    if(isCanvasBackground){
+      state.selected=null;redrawSelectionOnly();renderInspector();
+      if(evt.button===0||evt.button===1||evt.altKey||evt.pointerType==='touch'){
+        evt.preventDefault();
+        const vb=canvas.viewBox.baseVal,rect=canvas.getBoundingClientRect();
+        pan={
+          x:evt.clientX,y:evt.clientY,
+          vx:vb.x,vy:vb.y,vw:vb.width,vh:vb.height,
+          rectW:Math.max(1,rect.width),rectH:Math.max(1,rect.height),
+          pointerId:evt.pointerId
+        };
+        canvas.classList.add('is-panning');
+        try{canvas.setPointerCapture(evt.pointerId)}catch(e){}
+      }
+    }else if(evt.button===1||evt.altKey){
+      const vb=canvas.viewBox.baseVal,rect=canvas.getBoundingClientRect();
+      pan={
+        x:evt.clientX,y:evt.clientY,
+        vx:vb.x,vy:vb.y,vw:vb.width,vh:vb.height,
+        rectW:Math.max(1,rect.width),rectH:Math.max(1,rect.height),
+        pointerId:evt.pointerId
+      };
+      canvas.classList.add('is-panning');
+      try{canvas.setPointerCapture(evt.pointerId)}catch(e){}
+    }
   });
 
   canvas.addEventListener('wheel',evt=>{
@@ -2217,7 +2254,15 @@
 
     const rows={};
     comps.forEach((members,id)=>{const g=generation.get(id)||0;(rows[g]||=[]).push({id,members,layout:partnerComponentLayout(members,partnerRels)});});
-    const compBirthOrder=comp=>Math.min(...comp.members.map(birthOrderScore));
+    const compBirthOrder=comp=>{
+      const childMembers=comp.members.filter(n=>parentRels.some(r=>r.to===n.id));
+      const source=childMembers.length?childMembers:comp.members;
+      return Math.min(...source.map(birthOrderScore));
+    };
+    const memberParentSignature=n=>{
+      const ids=[...new Set(parentRels.filter(r=>r.to===n.id).map(r=>compOf(r.from)))].sort();
+      return ids.join('|');
+    };
     const desiredParentCenter=comp=>{
       const anchors=[];
       comp.members.forEach(member=>parentRels.filter(r=>r.to===member.id).forEach(r=>{const p=getNode(r.from);if(p)anchors.push(p.x);}));
@@ -2226,10 +2271,38 @@
 
     Object.keys(rows).map(Number).sort((a,b)=>a-b).forEach(g=>{
       const row=rows[g];
+      const familyFreq=new Map();
+      row.forEach(comp=>{
+        const keys=new Set(comp.members.map(memberParentSignature).filter(Boolean));
+        keys.forEach(key=>familyFreq.set(key,(familyFreq.get(key)||0)+1));
+      });
+      const familyInfo=comp=>{
+        const entries=comp.members
+          .map(n=>({n,key:memberParentSignature(n)}))
+          .filter(x=>x.key);
+        if(!entries.length)return{key:'',score:compBirthOrder(comp)};
+        entries.sort((a,b)=>
+          (familyFreq.get(b.key)||0)-(familyFreq.get(a.key)||0) ||
+          birthOrderScore(a.n)-birthOrderScore(b.n)
+        );
+        return{key:entries[0].key,score:birthOrderScore(entries[0].n)};
+      };
+
       row.sort((a,b)=>{
+        const fa=familyInfo(a),fb=familyInfo(b);
+        if(fa.key&&fa.key===fb.key){
+          return fa.score-fb.score ||
+            a.members.map(n=>n.name||'').join('').localeCompare(
+              b.members.map(n=>n.name||'').join(''),'zh-Hant'
+            );
+        }
         const ax=desiredParentCenter(a),bx=desiredParentCenter(b);
         if(ax!==null&&bx!==null&&Math.abs(ax-bx)>24)return ax-bx;
-        return compBirthOrder(a)-compBirthOrder(b)||a.members.map(n=>n.name||'').join('').localeCompare(b.members.map(n=>n.name||'').join(''),'zh-Hant');
+        return fa.score-fb.score ||
+          compBirthOrder(a)-compBirthOrder(b) ||
+          a.members.map(n=>n.name||'').join('').localeCompare(
+            b.members.map(n=>n.name||'').join(''),'zh-Hant'
+          );
       });
       const gap=90,total=row.reduce((s,c)=>s+c.layout.width,0)+Math.max(0,row.length-1)*gap;
       const baseY=150+g*270;
