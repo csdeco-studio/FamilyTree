@@ -320,25 +320,20 @@
           <button class="btn primary" id="parseBtn" style="flex:1">產生家系圖</button>
           <button class="btn" id="sampleBtn">載入範例</button>
         </div>
-        <p class="hint"><strong>可直接加入個案的父母、兄弟姊妹與子女。</strong>「長兄／次兄、長姊／次姊、長子／次子、長女／次女」只代表<strong>同一性別內的排行</strong>；若家庭成員男女混合，請用「排行第1、第2……」指定全部子女的實際出生順序。未填排行時，系統會優先依年齡由大到小排列。</p>
+        <p class="hint"><strong>可直接加入個案的父母、祖父母、兄弟姊妹、父母手足與子女。</strong>「長兄／次兄、長姊／次姊、長子／次子、長女／次女」只代表<strong>同一性別內的排行</strong>；若家庭成員男女混合，請用「排行第1、第2……」指定全部子女的實際出生順序。未填排行時，系統會優先依年齡由大到小排列。</p>
         <details class="parser-help" open>
-          <summary>文字輸入與出生排行說明</summary>
+          <summary>文字輸入、複雜親屬與出生排行說明</summary>
           <div class="hint parser-help-body">
-            <strong>基本輸入：</strong>每位主要成員建議各占一行，可使用全形或半形冒號、逗號、分號。常見稱呼如「父親／案父／爸爸」、「母親／案母／媽媽」、「配偶／先生／太太／老公／老婆」也可辨識。<br><br>
-            <strong>① 個案的父母</strong><br>
-            可直接寫「父親／案父／爸爸／爸」與「母親／案母／媽媽／媽」，系統都會辨識為個案上一代。<br>
-            例如：父親：85歲，已歿／案母：82歲。<br><br>
-            <strong>② 個案的兄弟姊妹</strong><br>
-            可使用長兄、次兄、大姊、弟弟、妹妹等稱謂；若要明確表示個案在所有手足中的出生順序，建議每個人都加上「排行第X」，而且<strong>個案本人也要算在排行內</strong>。<br>
-            例如：長兄：60歲，排行第1／個案：女性，58歲，排行第2／妹妹：54歲，排行第3。<br><br>
-            <strong>③ 個案的子女</strong><br>
-            「長子、次子」是<strong>兒子中的第1、第2</strong>；「長女、次女」是<strong>女兒中的第1、第2</strong>，不等於全體子女的出生順序。<br>
-            例如：長子：32歲，排行第1／長女：29歲，排行第2／次子：25歲，排行第3。這代表第一胎是長子、第二胎是長女、第三胎是次子。<br><br>
-            <strong>④ 系統排序原則</strong><br>
-            1. 有寫「排行第X」時，以排行為準。<br>
-            2. 沒有排行但有年齡時，依年齡由大到小排列。<br>
-            3. 沒有排行也沒有年齡時，才參考長、次、三、四、么等稱謂。<br><br>
-            <strong>最推薦寫法：</strong>只要同一組兄弟姊妹或子女同時有男性與女性，就加上「排行第X」，可避免「長子」與「長女」都被誤認為第一胎。
+            <strong>基本輸入：</strong>每位主要成員或一組關係建議各占一行。常見稱呼如「父親／案父／爸爸」、「母親／案母／媽媽」、「案妻／案夫」、「案大哥／案二妹」都可辨識。<br><br>
+            <strong>① 往上一代</strong><br>可直接寫父親、母親、祖父、祖母、外祖父、外祖母；伯父／叔叔／姑姑會放在父系旁系，舅舅／阿姨會放在母系旁系。<br><br>
+            <strong>② 個案手足與出生排行</strong><br>長兄／次兄、長姊／次姊只代表同性別內排行。若要明確指定所有手足的出生順序，請加「排行第1、第2……」，個案本人也要算在內。<br><br>
+            <strong>③ 子女與旁系後代</strong><br>可辨識長子、次子、長女、次女，以及外甥／外甥女、姪子／姪女、孫子／孫女。若要明確指定某位手足的子女，建議使用「／」路徑。<br>
+            例如：案二妹／大外甥女：已婚，育有一女約3歲，居住台東。<br>案二妹／次外甥女：已婚，居住高雄。<br><br>
+            <strong>④ 多段婚姻</strong><br>可寫「二婚、兩段婚姻皆離婚、與前夫育有二子一女」，也可精準指定：<br>
+            案二妹／第一段婚姻：育有3女2子，其中次子已歿。<br>案二妹／第二段婚姻：育有3子女，約20多歲、高二、國三，已無聯繫。<br><br>
+            <strong>⑤ 社工常用備註</strong><br>系統會盡量把「同住、無聯繫、較少聯繫、主要照顧者、主要事務處理者、身心障礙證明、職業、居住地」整理到人物右側備註；主要照顧／事務處理者也會嘗試建立照顧支持關係。<br><br>
+            <strong>⑥ 系統排序原則</strong><br>1. 有寫「排行第X」時，以排行為準。<br>2. 沒有排行但有年齡時，依年齡由大到小排列。<br>3. 沒有排行也沒有年齡時，才參考長、次、三、四、么等稱謂。<br><br>
+            <strong>複雜案例最推薦寫法：</strong>長段社工紀錄可以直接貼上，但若婚姻很多、旁系後代很多，拆成「一行一人物／一行一段婚姻」，再用「案二妹／第一段婚姻」這類路徑，辨識會更穩定。
           </div>
         </details>
         <div class="parse-report" id="parseReport" aria-live="polite"></div>
@@ -421,6 +416,7 @@
         <div class="legal-notice" style="margin-top:9px"><strong>授權與著作權：</strong>本工具由 CSDeco 提供免費使用。使用者可免費使用本工具，並可保存、列印及運用自己製作的家系圖與文字產出。除法律另有規定或取得 CSDeco 授權外，不得重製或公開散布本工具之程式碼／完整網站檔案，不得將本工具或其修改版本販售、出租、收費提供、再授權，亦不得冒用 CSDeco 名義發布。使用者自行輸入之資料與產出內容，其權利不因使用本工具而移轉予 CSDeco。</div>
       </section>
       <section class="section">
+        <div class="version-card"><strong>版本 6.3.7</strong><span>2026-08-31</span><p>複雜親屬與社工敘述辨識：支援外甥／外甥女、姪子／姪女、孫子女、前段婚姻、婚姻段次、主要照顧／事務處理與常見居住、聯繫、職業備註。</p></div>
         <div class="version-card"><strong>版本 6.3.4</strong><span>2026-08-28</span><p>工具列插件化：新增「常用／人物／圖形／關係／更多」分頁，常用工具置頂，進階符號收進更多；並加入一鍵收合／展開。</p></div>
         <div class="version-card"><strong>版本 6.3.3</strong><span>2026-08-28</span><p>合併縮放／網格與新增物件工具列，改為單一整合式工具列，減少遮擋並提升直覺操作。</p></div>
         <div class="version-card"><strong>版本 6.3.2</strong><span>2026-08-28</span><p>新增更多常用家系圖符號與快速關係按鈕，包含個案、已歿、流產／死產、婚姻／同居／分居／離婚、收養／寄養、雙胞胎、衝突與照顧等；人物備註改顯示於圖示右側。</p></div>
@@ -597,10 +593,11 @@
 </dialog>
 
 <dialog id="versionDialog">
-  <div class="dialog-head">家系圖快速製作器 V6.2.9</div>
+  <div class="dialog-head">家系圖快速製作器 V6.3.7</div>
   <div class="dialog-body version-dialog-body">
-    <p><strong>發布日期：</strong>2026-08-27</p>
+    <p><strong>發布日期：</strong>2026-08-31</p>
     <ul>
+      <li><strong>V6.3.7 複雜親屬與社工敘述辨識：</strong>新增外甥／外甥女、姪子／姪女、孫子女、前段婚姻與婚姻段次定位；可理解「案二妹／第一段婚姻：育有3女2子，其中次子已歿」等寫法，並把同住、無聯繫、主要照顧、事務處理、職業與居住地整理成備註。</li>
       <li><strong>V6.3.4 插件化工具列：</strong>新增「常用／人物／圖形／關係／更多」分頁，常用工具集中在第一頁，較少使用的進階符號收進「更多」；工具列可一鍵收合／展開，並記住目前狀態。</li>
       <li><strong>V6.3.3 整合式工具列：</strong>將原本的縮放／適合畫面／網格工具列與人物、圖形、關係工具列合併為同一塊面板，減少重疊與遮擋，桌機與手機都更直覺。</li>
       <li><strong>V6.3.2 常用符號擴充與備註右側化：</strong>新增個案、已歿、流產／死產、婚姻／同居／分居／離婚、親生／收養／寄養、雙胞胎、衝突、親密、關係中斷、施暴與照顧等快速工具；人物備註改顯示在圖示右側，較貼近實務使用。</li>
@@ -685,7 +682,7 @@
   const toast = $('#toast');
 
   const GRID_SIZE = 20;
-  const APP_VERSION = '6.3.4';
+  const APP_VERSION = '6.3.7';
   const BUILD_DATE = '2026-07-28';
   const EXPORT_PADDING = 70;
 
@@ -1932,6 +1929,14 @@
     const s=String(text);let m=s.match(/(?:年齡\s*)?[（(]?\s*(\d{1,3})\s*[)）]?\s*歲/);if(m)return m[1];
     m=s.match(/(?:年齡\s*)?([一二兩三四五六七八九十]{1,3})\s*歲/);if(m){const n=cnNumber(m[1]);return Number.isFinite(n)?String(n):'';}return '';
   }
+  function parseOwnAge(text){
+    const source=String(text||'').split(/育有|生有|生了|與前夫|與前妻|前段婚姻|第[一二三四五六七八九十\d]+段婚姻/)[0];
+    return parseAge(source);
+  }
+  function hasOwnDeath(text){
+    const parts=String(text||'').split(/[，,]/).map(s=>s.trim()).filter(Boolean);
+    return parts.some(p=>/^(?:已歿|往生|死亡|過世)(?:$|\s)/.test(p)||/^(?:\d{1,3}|[一二兩三四五六七八九十]{1,3})\s*歲[^，,]{0,8}(?:已歿|往生|死亡|過世)/.test(p));
+  }
   function parseWeeks(text){const m=String(text).match(/(\d{1,2})\s*(?:週|周)/);return m?m[1]:'';}
   function parseBirthOrder(text,label=''){
     const source=`${label} ${text}`;
@@ -1944,6 +1949,51 @@
   function isSiblingRole(head=''){
     return /^(?:案兄|案姐|案姊|案弟|案妹|長兄|次兄|二兄|三兄|四兄|五兄|大哥|二哥|三哥|四哥|五哥|哥哥|哥|兄|長姊|長姐|次姊|次姐|二姊|二姐|三姊|三姐|四姊|四姐|五姊|五姐|大姊|大姐|姐姐|姊姊|姊|姐|大弟|二弟|三弟|四弟|五弟|小弟|弟弟|弟|大妹|二妹|三妹|四妹|五妹|小妹|妹妹|妹)$/.test(head);
   }
+  function normalizeRoleAlias(head=''){
+    const map={
+      '案妻':'配偶','案夫':'配偶','案先生':'配偶','案太太':'配偶','案老公':'配偶','案老婆':'配偶',
+      '案大哥':'大哥','案二哥':'二哥','案三哥':'三哥','案四哥':'四哥','案五哥':'五哥',
+      '案大姐':'大姐','案二姐':'二姐','案三姐':'三姐','案四姐':'四姐','案五姐':'五姐',
+      '案大姊':'大姊','案二姊':'二姊','案三姊':'三姊','案四姊':'四姊','案五姊':'五姊',
+      '案大弟':'大弟','案二弟':'二弟','案三弟':'三弟','案四弟':'四弟','案五弟':'五弟',
+      '案大妹':'大妹','案二妹':'二妹','案三妹':'三妹','案四妹':'四妹','案五妹':'五妹',
+      '案爺爺':'祖父','案奶奶':'祖母','案阿公':'祖父','案阿嬤':'祖母','案外公':'外祖父','案外婆':'外祖母'
+    };
+    return map[head]||head;
+  }
+  function extractSocialNote(text=''){
+    const source=String(text||'');
+    const notes=[];
+    const push=v=>{v=String(v||'').trim().replace(/^[，,。；;\s]+|[，,。；;\s]+$/g,'');if(v&&!notes.includes(v))notes.push(v)};
+    if(/在家照顧/.test(source))push('在家照顧');
+    const disability=source.match(/第[一二三四五六七八九十\d]+類(?:輕度|中度|重度|極重度)?身心障礙(?:證明|手冊)?|(?:輕度|中度|重度|極重度)身心障礙(?:證明|手冊)?/); if(disability)push(disability[0]);
+    if(/未婚/.test(source))push('未婚'); if(/已婚/.test(source))push('已婚');
+    if(/與個案同住|與案主同住|同住/.test(source))push('同住');
+    if(/無聯繫|已無聯繫|沒有聯繫/.test(source))push('無聯繫'); else if(/較少聯繫|少聯繫|平時較少聯繫/.test(source))push('較少聯繫');
+    if(/對個案事務較無實質幫助|無實質幫助/.test(source))push('對個案事務較無實質幫助');
+    if(/主要事務處理者/.test(source))push('主要事務處理者'); if(/主要照顧者/.test(source))push('主要照顧者'); if(/協助簡單照顧/.test(source))push('協助簡單照顧');
+    if(/照顧(?:能力|支持)?有限|仍有限/.test(source))push('照顧支持有限');
+    const residence=source.match(/(?:目前)?居住(?:於)?\s*([^，,。；;]{1,10})|住在\s*([^，,。；;]{1,10})/); if(residence)push(`居住${(residence[1]||residence[2]||'').trim()}`); if(/外縣市/.test(source))push('居住外縣市');
+    const work=source.match(/職業軍人|送餐員|(?:於|在)[^，,。；;]{0,14}擔任[^，,。；;]{1,14}|擔任[^，,。；;]{1,18}社工|社工/); if(work)push(work[0]);
+    const school=source.match(/約\s*\d+\s*多歲|高[一二三123]|國[一二三123]|大[一二三四1234]|就學階段/); if(school)push(school[0]);
+    const travel=source.match(/休假[^，,。；;]{0,20}往返[^，,。；;]{0,12}/); if(travel)push(travel[0]);
+    return notes.join('；');
+  }
+  function normalizeCollateralName(head=''){
+    const map={
+      '伯伯':'伯父','叔父':'叔叔','姑媽':'姑姑','舅父':'舅舅','阿舅':'舅舅','姨媽':'阿姨','姨母':'阿姨'
+    };
+    return map[head]||head;
+  }
+  function isPaternalCollateralRole(head=''){
+    return /^(?:伯父|伯伯|叔父|叔叔|姑姑|姑媽)$/.test(head);
+  }
+  function isMaternalCollateralRole(head=''){
+    return /^(?:舅舅|舅父|阿舅|阿姨|姨媽|姨母)$/.test(head);
+  }
+  function collateralSex(head=''){
+    return /姑|姨/.test(head)?'female':'male';
+  }
   function inferSex(label,text=''){
     if(/女兒|女|姊|姐|妹|妻|太太|母/.test(label))return'female';
     if(/兒子|男|兄|哥|弟|夫|先生|父|子/.test(label))return'male';
@@ -1951,24 +2001,39 @@
     if(/兒子|男性|男童|丈夫|先生|父親/.test(text))return'male';
     return'unknown';
   }
-  function normalizeQuickText(raw){return String(raw).replace(/\r/g,'').replace(/[；;]/g,'，').replace(/[，、]/g,'，').replace(/[：:]/g,'：').replace(/^\s*[•・●\-*]\s*/gm,'').trim();}
+  function normalizeQuickText(raw){return String(raw).replace(/\r/g,'').replace(/[。；;]/g,'\n').replace(/[，、]/g,'，').replace(/[：:]/g,'：').replace(/，\s*(?=案(?:大|長|次|二|三|四|五|六|七|八|九)?(?:外甥女|外甥|姪女|姪子|侄女|侄子|孫女|孫子|外孫女|外孫))/g,'\n').replace(/^\s*[•・●\-*]\s*/gm,'').trim();}
   function splitRoleLine(line){
     if(line.includes('：')){const [h,...r]=line.split('：');return [h.trim(),r.join('：').trim()];}
-    const roles=['主要個案','服務對象','受服務者','案主本人','個案本人','個案','案主','本人','案父親','案母親','父親','母親','案父','案母','爸爸','媽媽','生父','生母','父','母','爸','媽','另一半','配偶','伴侶','丈夫','先生','太太','妻子','老公','老婆','妻','夫','案兄','案姐','案姊','案弟','案妹','長兄','次兄','二兄','三兄','四兄','五兄','大哥','二哥','三哥','四哥','五哥','哥哥','哥','兄','長姊','長姐','次姊','次姐','二姊','二姐','三姊','三姐','四姊','四姐','五姊','五姐','大姊','大姐','姐姐','姊姊','姊','姐','大弟','二弟','三弟','四弟','五弟','小弟','弟弟','弟','大妹','二妹','三妹','四妹','五妹','小妹','妹妹','妹','大兒子','二兒子','小兒子','兒子','大女兒','二女兒','小女兒','女兒','長男','長子','長女','次男','次子','次女','三男','三子','三女','四男','四女','五男','五女','六男','六女','七男','七女','八男','八女','九男','九女','么子','么女','兒','女'];
+    const descendant=line.match(/^(案?(?:大|長|次|二|三|四|五|六|七|八|九)?(?:外甥女|外甥|姪女|姪子|侄女|侄子|孫女|孫子|外孫女|外孫|長子|次子|三子|四子|五子|長女|次女|三女|四女|五女))/);
+    if(descendant){const role=descendant[1];return[role,line.slice(role.length).replace(/^\s*[，,]?\s*/,'')];}
+    const roles=['主要個案','服務對象','受服務者','案主本人','個案本人','個案','案主','本人','案妻','案夫','案先生','案太太','案老公','案老婆','祖父','祖母','爺爺','奶奶','阿公','阿嬤','外祖父','外祖母','外公','外婆','伯父','伯伯','叔父','叔叔','姑姑','姑媽','舅舅','舅父','阿舅','阿姨','姨媽','姨母','案父親','案母親','父親','母親','案父','案母','爸爸','媽媽','生父','生母','父','母','爸','媽','另一半','配偶','伴侶','丈夫','先生','太太','妻子','老公','老婆','妻','夫','案兄','案姐','案姊','案弟','案妹','案大哥','案二哥','案三哥','案四哥','案五哥','案大姐','案二姐','案三姐','案四姐','案五姐','案大姊','案二姊','案三姊','案四姊','案五姊','案大弟','案二弟','案三弟','案四弟','案五弟','案大妹','案二妹','案三妹','案四妹','案五妹','長兄','次兄','二兄','三兄','四兄','五兄','大哥','二哥','三哥','四哥','五哥','哥哥','哥','兄','長姊','長姐','次姊','次姐','二姊','二姐','三姊','三姐','四姊','四姐','五姊','五姐','大姊','大姐','姐姐','姊姊','姊','姐','大弟','二弟','三弟','四弟','五弟','小弟','弟弟','弟','大妹','二妹','三妹','四妹','五妹','小妹','妹妹','妹','大兒子','二兒子','小兒子','兒子','大女兒','二女兒','小女兒','女兒','長男','長子','長女','次男','次子','次女','三男','三子','三女','四男','四女','五男','五女','六男','六女','七男','七女','八男','八女','九男','九女','么子','么女','兒','女'];
     const role=roles.find(x=>line.startsWith(x));if(role)return[role,line.slice(role.length).replace(/^\s*[，,]?\s*/,'')];return['',line];
   }
   function extractChildSpecs(text){
     const out=[],seen=new Set(),push=(sex,age)=>{const key=sex+'-'+age;if(!seen.has(key)){seen.add(key);out.push({sex,age:String(age)});}};
     const patterns=[
       /(\d{1,3})\s*歲(?:的)?\s*(兒子|女兒|男童|女童|子|女)/g,
-      /(兒子|女兒|男童|女童|子|女)\s*[（(]?\s*(\d{1,3})\s*歲?\s*[)）]?/g,
-      /(?:一|1)\s*(子|女)[，,\s]*(\d{1,3})\s*歲/g
+      /(兒子|女兒|男童|女童|子|女)\s*[（(]?\s*(\d{1,3})\s*歲\s*[)）]?/g,
+      /(?:一|1)\s*(子|女)[，,\s]*(?:約)?\s*(\d{1,3})\s*歲/g
     ];
     patterns.forEach((re,idx)=>{for(const m of text.matchAll(re)){const age=idx===0?m[1]:m[2],word=idx===0?m[2]:m[1];push(/女/.test(word)?'female':'male',age);}});return out;
   }
+
+  function extractChildCountSpecs(text=''){
+    const out=[];
+    const push=(sex,count)=>{count=Number(count)||0;if(count>0)out.push({sex,count});};
+    for(const m of String(text).matchAll(/([一二兩三四五六七八九十\d]+)\s*(名子女|個子女|子女|兒子|女兒|子|女)/g)){
+      const raw=m[1], word=m[2];
+      const count=/^\d+$/.test(raw)?Number(raw):cnNumber(raw);
+      if(!Number.isFinite(count)||count<=0)continue;
+      const sex=/子女/.test(word)?'unknown':/女/.test(word)?'female':'male';
+      push(sex,count);
+    }
+    return out;
+  }
   function parseMarriageCount(text){
-    const m=String(text).match(/(?:婚配|結婚|婚姻|婚過)\s*([一二兩三四五六七八九十\d]+)\s*(?:次|段|任)/);if(m){const n=cnNumber(m[1]);return Number.isFinite(n)?n:0;}
-    return /已婚|有配偶|同居/.test(text)?1:0;
+    const m=String(text).match(/(?:婚配|結婚|婚姻|婚過)\s*([一二兩三四五六七八九十\d]+)\s*(?:次|段|任)|([一二兩三四五六七八九十\d]+)\s*(?:次婚姻|段婚姻|婚|任婚姻)/);if(m){const raw=m[1]||m[2];const n=cnNumber(raw);return Number.isFinite(n)?n:0;}
+    return /已婚|有配偶|同居|再婚/.test(text)?1:0;
   }
   function marriageSegments(body,count){
     const result=[];for(let i=1;i<=count;i++){
@@ -1993,83 +2058,79 @@
   }
   function parseQuickInput(raw){
     const lines=normalizeQuickText(raw).split(/\n+/).map(s=>s.trim()).filter(Boolean),nodes=[],relations=[],warnings=[];
-    let proband=null,spouse=null,father=null,mother=null;
-    let fatherText='',motherText='';
-    const children=[],siblings=[];
+    const roleMap=new Map(),marriageMap=new Map();
+    let proband=null,spouse=null,father=null,mother=null,fatherText='',motherText='',rootMarriageLabel='';
+    let paternalGrandfather=null,paternalGrandmother=null,maternalGrandfather=null,maternalGrandmother=null;
+    let paternalGrandfatherText='',paternalGrandmotherText='',maternalGrandfatherText='',maternalGrandmotherText='';
+    const children=[],siblings=[],paternalCollaterals=[],maternalCollaterals=[];
+    let lastPerson=null,lastSibling=null,lastMarriageSubject=null,lastMarriageIndex=0;
+    const mergeNotes=(a,b)=>[...String(a||'').split('；'),...String(b||'').split('；')].filter(Boolean).filter((v,i,arr)=>arr.indexOf(v)===i).join('；');
     const newNode=p=>{const n=normalizeNode({...p,id:uid('n')});nodes.push(n);return n;};
-    const rel=(a,b,type='partner',opts={})=>{
-      const r=normalizeRelation({id:uid('r'),from:a.id,to:b.id,type,status:opts.status||'married',subtype:opts.subtype||(type==='parent'?'biological':''),label:opts.label||'',unionId:opts.unionId||''});
-      relations.push(r);return r;
-    };
-    const isChildRole=h=>/^(?:長男|長子|大兒子|長女|大女兒|次男|次子|二兒子|次女|二女兒|三男|三子|三女|四男|四女|五男|五女|六男|六女|七男|七女|八男|八女|九男|九女|么子|么女|小兒子|小女兒|兒子|女兒|兒|女)$/.test(h)||/(長|大|次|二|三|四|五|六|七|八|九|么).*(男|子|女|兒)/.test(h);
-    for(const original of lines){
-      const [head,bodyRaw]=splitRoleLine(original),body=bodyRaw||'';let handled=false;
-      if(/個案|案主|服務對象|主要個案|受服務者|本人|案主本人|個案本人/.test(head||original)){
-        const source=head?body:original,sex=inferSex(head,source);proband=newNode({name:'個案',sex,age:parseAge(source),birthOrder:parseBirthOrder(source,head),deceased:/已歿|死亡|過世/.test(source),proband:true,note:/在家照顧/.test(source)?'在家照顧':''});handled=true;
-      }else if(/^(父親|案父親|案父|爸爸|爸|父|生父)$/.test(head)){
-        fatherText=body;father=newNode({name:'父親',sex:'male',age:parseAge(body),birthOrder:parseBirthOrder(body,head),deceased:/已歿|死亡|過世/.test(body),note:/未婚/.test(body)?'未婚':''});handled=true;
-      }else if(/^(母親|案母親|案母|媽媽|媽|母|生母)$/.test(head)){
-        motherText=body;mother=newNode({name:'母親',sex:'female',age:parseAge(body),birthOrder:parseBirthOrder(body,head),deceased:/已歿|死亡|過世/.test(body),note:/未婚/.test(body)?'未婚':''});handled=true;
-      }else if(/^(配偶|伴侶|另一半|丈夫|先生|太太|妻子|老公|老婆|妻|夫)$/.test(head)){
-        const sex=/^(丈夫|先生|老公|夫)$/.test(head)?'male':/^(太太|妻子|老婆|妻)$/.test(head)?'female':inferSex(head,body);spouse=newNode({name:'配偶',sex,age:parseAge(body),deceased:/已歿|死亡|過世/.test(body)});handled=true;
-      }else if(isSiblingRole(head)){
-        const sex=inferSex(head,body),note=[/未婚/.test(body)?'未婚':'',/已婚/.test(body)?'已婚':''].filter(Boolean).join('，');
-        const siblingName=({"大哥":"長兄","哥":"兄","大姐":"長姊","案姐":"姊","案姊":"姊","姊姊":"姊","案兄":"兄","案弟":"弟","案妹":"妹"}[head]||head);
-        siblings.push(newNode({name:siblingName,sex,age:parseAge(body),birthOrder:parseBirthOrder(body,head),deceased:/已歿|死亡|過世/.test(body),note}));handled=true;
-      }else if(/懷孕/.test(head+body)){
-        newNode({name:head||'懷孕',sex:'pregnancy',gestationWeeks:parseWeeks(body),note:body.replace(/懷孕|\d+\s*(?:週|周)/g,'').replace(/[，,]/g,' ').trim()});handled=true;
-      }else if(/流產|死產/.test(head+body)){
-        const lossType=/死產/.test(head+body)?'stillbirth':/人工/.test(head+body)?'abortion':/自然/.test(head+body)?'miscarriage':'unknown';newNode({name:head||lossTypeName(lossType),sex:'loss',lossType,note:body.replace(/自然流產|人工流產|流產|死產/g,'').replace(/[，,]/g,' ').trim()});handled=true;
-      }else if(isChildRole(head)){
-        const sex=inferSex(head,body),childName=({"大兒子":"長子","二兒子":"次子","小兒子":"么子","兒子":"子","大女兒":"長女","二女兒":"次女","小女兒":"么女","女兒":"女"}[head]||head),child=newNode({name:childName,sex,age:parseAge(body),birthOrder:parseBirthOrder(body,head),note:/未婚/.test(body)?'未婚':''});children.push(child);handled=true;
-        const count=parseMarriageCount(body),segments=marriageSegments(body,count),partners=[];
-        for(let i=0;i<count;i++){
-          const segment=segments[i]||(count===1?body:'');
-          const partnerDetails=parsePartnerDetails(segment,sex);
-          const partner=newNode({
-            name:count===1?'配偶':`第${['一','二','三','四','五','六'][i]||i+1}任配偶`,
-            sex:partnerDetails.sex,
-            age:partnerDetails.age,
-            deceased:partnerDetails.deceased
-          });partners.push(partner);
-          const union=rel(child,partner,'partner',{status:/離婚/.test(segment)?'divorced':/分居/.test(segment)?'separated':/同居/.test(segment)?'cohabiting':'married'});
-          extractChildSpecs(segment).forEach(spec=>{
-            const c=newNode({name:spec.sex==='male'?'子':'女',sex:spec.sex,age:spec.age});
-            rel(child,c,'parent',{unionId:union.id});rel(partner,c,'parent',{unionId:union.id});
-          });
-        }
-        const general=extractChildSpecs(body);general.forEach(spec=>{
-          const exists=nodes.some(n=>n.age===spec.age&&n.sex===spec.sex&&relations.some(r=>r.type==='parent'&&r.to===n.id&&r.from===child.id));if(exists)return;
-          const c=newNode({name:spec.sex==='male'?'子':'女',sex:spec.sex,age:spec.age});
-          const union=partners.length===1?relations.find(r=>r.type==='partner'&&((r.from===child.id&&r.to===partners[0].id)||(r.to===child.id&&r.from===partners[0].id))):null;
-          rel(child,c,'parent',{unionId:union?.id||''});if(partners.length===1)rel(partners[0],c,'parent',{unionId:union?.id||''});
-        });
+    const keyOf=k=>normalizeRoleAlias(String(k||'').replace(/^案/,''));
+    const register=(node,...keys)=>{keys.flat().filter(Boolean).forEach(k=>roleMap.set(keyOf(k),node));return node;};
+    const findRole=k=>roleMap.get(keyOf(k))||null;
+    const updateNode=(node,props={})=>{if(!node)return node;if(props.sex&&node.sex==='unknown')node.sex=props.sex;if(props.age&&!node.age)node.age=props.age;if(props.birthOrder&&!node.birthOrder)node.birthOrder=props.birthOrder;if(props.deceased)node.deceased=true;if(props.proband)node.proband=true;if(props.note)node.note=mergeNotes(node.note,props.note);return node;};
+    const ensureRole=(key,props={},displayName='')=>{let n=findRole(key);if(n)return updateNode(n,props);n=newNode({...props,name:displayName||props.name||keyOf(key)});register(n,key,displayName,keyOf(key));return n;};
+    const rel=(a,b,type='partner',opts={})=>{if(!a||!b||a.id===b.id)return null;const subtype=opts.subtype||(type==='parent'?'biological':'');const e=relations.find(r=>r.from===a.id&&r.to===b.id&&r.type===type&&(type!=='partner'||r.status===(opts.status||'married'))&&(type!=='parent'||(r.unionId||'')===(opts.unionId||'')));if(e){if(opts.label&&!e.label)e.label=opts.label;return e;}const r=normalizeRelation({id:uid('r'),from:a.id,to:b.id,type,status:opts.status||'married',subtype,label:opts.label||'',unionId:opts.unionId||''});relations.push(r);return r;};
+    const ordWords=['一','二','三','四','五','六','七','八','九','十'];
+    const ordinalOf=s=>{s=String(s||'');if(/^(?:大|長)/.test(s))return 1;if(/^(?:次|二)/.test(s))return 2;const m=s.match(/^([三四五六七八九十\d]+)/);return m?( /^\d+$/.test(m[1])?Number(m[1]):cnNumber(m[1]) ):0;};
+    const childLabel=(sex,i,count)=>count===1?(sex==='male'?'子':sex==='female'?'女':'子女'):(sex==='male'?`子${i}`:sex==='female'?`女${i}`:`子女${i}`);
+    function ensureMarriageContext(focal,index=1,status='married'){if(!focal)return null;let list=marriageMap.get(focal.id);if(!list){list=[];marriageMap.set(focal.id,list);}if(list[index-1]){if(status&&status!=='married')list[index-1].union.status=status;return list[index-1];}const p=newNode({name:`第${ordWords[index-1]||index}任配偶`,sex:focal.sex==='male'?'female':focal.sex==='female'?'male':'unknown'}),u=rel(focal,p,'partner',{status});const c={partner:p,union:u,index};list[index-1]=c;return c;}
+    function addChildrenFromText(focal,partner,union,source){const made=[],d=extractChildSpecs(source);if(d.length){d.forEach(s=>{const c=newNode({name:s.sex==='male'?'子':'女',sex:s.sex,age:s.age});rel(focal,c,'parent',{unionId:union?.id||''});if(partner)rel(partner,c,'parent',{unionId:union?.id||''});made.push(c);});}else{extractChildCountSpecs(source).forEach(g=>{for(let i=1;i<=g.count;i++){const c=newNode({name:childLabel(g.sex,i,g.count),sex:g.sex});rel(focal,c,'parent',{unionId:union?.id||''});if(partner)rel(partner,c,'parent',{unionId:union?.id||''});made.push(c);}});}const hints=[...String(source).matchAll(/約\s*\d+\s*多歲|高[一二三123]|國[一二三123]/g)].map(m=>m[0]);made.forEach((c,i)=>{if(hints[i])c.note=mergeNotes(c.note,hints[i]);if(/無聯繫|已無聯繫/.test(source))c.note=mergeNotes(c.note,'無聯繫');});const mark=(sex,idx,re)=>{const t=made.filter(x=>x.sex===sex||x.sex==='unknown')[idx];if(t&&re.test(source)){t.deceased=true;if(t.sex==='unknown')t.sex=sex;}};mark('male',0,/長子[^，。；;]*?(?:已歿|往生|死亡|過世)/);mark('male',1,/次子[^，。；;]*?(?:已歿|往生|死亡|過世)/);mark('female',0,/長女[^，。；;]*?(?:已歿|往生|死亡|過世)/);mark('female',1,/次女[^，。；;]*?(?:已歿|往生|死亡|過世)/);return made;}
+    function addHistoricalUnion(focal,source,index=1){const status=/離婚|前夫|前妻|皆離婚/.test(source)?'divorced':/分居/.test(source)?'separated':'married',ctx=ensureMarriageContext(focal,index,status);const det=parsePartnerDetails(source,focal.sex);updateNode(ctx.partner,{sex:det.sex,age:det.age,deceased:det.deceased});if(/前夫/.test(source))ctx.partner.name='前夫';if(/前妻/.test(source))ctx.partner.name='前妻';addChildrenFromText(focal,ctx.partner,ctx.union,source);return ctx;}
+    const partnerContext=(parent,index=0)=>{const list=marriageMap.get(parent.id)||[];if(index&&list[index-1])return list[index-1];if(list.length)return list[list.length-1];const u=relations.find(r=>r.type==='partner'&&(r.from===parent.id||r.to===parent.id));if(!u)return null;return{union:u,partner:nodes.find(n=>n.id===(u.from===parent.id?u.to:u.from)),index:1};};
+    const descInfo=l=>{const s=String(l||'').replace(/^案/,'');let sex='unknown';if(/外甥女|姪女|侄女|孫女|外孫女|女/.test(s))sex='female';else if(/外甥|姪子|侄子|孫子|外孫|子/.test(s))sex='male';return{raw:s,sex,order:ordinalOf(s)};};
+    const childrenOf=p=>relations.filter(r=>r.type==='parent'&&r.from===p.id).map(r=>nodes.find(n=>n.id===r.to)).filter(Boolean);
+    function ensureDescendant(parent,label,body='',marriageIndex=0){
+      if(!parent)return null;
+      const info=descInfo(label),ctx=partnerContext(parent,marriageIndex);
+      let pool=childrenOf(parent);
+      if(marriageIndex&&ctx?.union){
+        const ids=new Set(relations.filter(r=>r.type==='parent'&&r.from===parent.id&&(r.unionId||'')===ctx.union.id).map(r=>r.to));
+        const scoped=pool.filter(n=>ids.has(n.id));if(scoped.length)pool=scoped;
       }
-      if(!handled)warnings.push(original);
-    }
-
-    const rootUnion=proband&&spouse?rel(spouse,proband,'partner',{status:'married'}):null;
-    if(proband)children.forEach(c=>{
-      rel(proband,c,'parent',{unionId:rootUnion?.id||''});
-      if(spouse)rel(spouse,c,'parent',{unionId:rootUnion?.id||''});
-    });
-
-    if(proband&&(father||mother)){
-      let parentUnion=null;
-      if(father&&mother){
-        const combined=`${fatherText} ${motherText}`;
-        parentUnion=rel(father,mother,'partner',{status:/離婚/.test(combined)?'divorced':/分居/.test(combined)?'separated':/同居/.test(combined)?'cohabiting':'married'});
+      const kinOrdinal=/外甥|姪|侄|孫/.test(info.raw);
+      const sameSex=pool.filter(n=>info.sex==='unknown'||n.sex===info.sex||n.sex==='unknown');
+      let n=info.order?(kinOrdinal?pool[info.order-1]:sameSex[info.order-1]):sameSex.find(x=>!x._claimedByText);if(n&&info.sex!=='unknown'&&n.sex!=='unknown'&&n.sex!==info.sex)n=null;
+      if(!n){
+        n=newNode({name:info.raw,sex:info.sex,age:parseOwnAge(body),birthOrder:info.order||parseBirthOrder(body,label),deceased:/已歿|往生|死亡|過世/.test(body),note:extractSocialNote(body)});
+        rel(parent,n,'parent',{unionId:ctx?.union?.id||''});if(ctx?.partner)rel(ctx.partner,n,'parent',{unionId:ctx.union.id});
+      }else{
+        updateNode(n,{sex:info.sex,age:parseOwnAge(body),birthOrder:info.order||parseBirthOrder(body,label),deceased:/已歿|往生|死亡|過世/.test(body),note:extractSocialNote(body)});n.name=info.raw;
       }
-      const familyChildren=[...siblings,proband];
-      familyChildren.forEach(member=>{
-        if(father)rel(father,member,'parent',{unionId:parentUnion?.id||''});
-        if(mother)rel(mother,member,'parent',{unionId:parentUnion?.id||''});
-      });
-    }else if((father||mother||siblings.length)&&!proband){
-      warnings.push('已輸入父母或手足，但缺少「個案／案主」資料，無法建立其親屬連線');
+      n._claimedByText=true;register(n,label,info.raw);
+      if(/已婚|結婚|有配偶/.test(body)){let u=relations.find(r=>r.type==='partner'&&(r.from===n.id||r.to===n.id)),p=u?nodes.find(x=>x.id===(u.from===n.id?u.to:u.from)):null;if(!u){p=newNode({name:'配偶',sex:n.sex==='male'?'female':n.sex==='female'?'male':'unknown'});u=rel(n,p,'partner',{status:'married'});}addChildrenFromText(n,p,u,body);}
+      lastPerson=n;return n;
     }
+    const applyCare=(n,body)=>{if(!n||!proband||n.id===proband.id)return;if(/主要事務處理者/.test(body))rel(n,proband,'care',{label:'主要事務處理'});else if(/主要照顧者/.test(body))rel(n,proband,'care',{label:'主要照顧'});else if(/協助簡單照顧/.test(body))rel(n,proband,'care',{label:'協助照顧'});};
+    const markDeceased=(s)=>{if(!/(?:已歿|往生|死亡|過世)/.test(s))return;if(/案父母[^，。；;]*?(?:已歿|往生|死亡|過世)/.test(s)){father=ensureRole('父親',{sex:'male',deceased:true},'父親');mother=ensureRole('母親',{sex:'female',deceased:true},'母親');}const ms=[...s.matchAll(/案?(?:大|長|次|二|三|四|五)?(?:哥|兄|姐|姊|弟|妹)/g)].map(m=>m[0]).filter(Boolean);ms.forEach(k=>{const h=normalizeRoleAlias(k),n=ensureRole(h,{sex:inferSex(h,''),deceased:true},h);if(!siblings.includes(n))siblings.push(n);});};
+    const handlePath=line=>{const ci=line.indexOf('：');if(ci<0||!line.slice(0,ci).includes('／'))return false;const path=line.slice(0,ci).split('／').map(x=>x.trim()).filter(Boolean),body=line.slice(ci+1).trim(),subject=findRole(path[0]);if(!subject)return false;let mi=0;const mp=path.find(x=>/(?:第)?[一二三四五六七八九十\d]+段婚姻/.test(x));if(mp){const m=mp.match(/([一二三四五六七八九十\d]+)/);mi=m?( /^\d+$/.test(m[1])?Number(m[1]):cnNumber(m[1]) ):1;const ctx=ensureMarriageContext(subject,mi,/離婚/.test(body)?'divorced':'married');addChildrenFromText(subject,ctx.partner,ctx.union,body);lastMarriageSubject=subject;lastMarriageIndex=mi;}const last=path[path.length-1];if(last!==path[0]&&last!==mp){ensureDescendant(subject,last,body,mi);}else if(!mp){updateNode(subject,{note:extractSocialNote(body)});applyCare(subject,body);}lastPerson=subject;return true;};
 
-    return {nodes,relations,warnings,total:lines.length};
+    for(const rawLine of lines){let original=rawLine.replace(/^其中\s*/,'').trim();const embedded=original.match(/案(?:大|長|次|二|三|四|五)?(?:哥|兄|姐|姊|弟|妹)/);if(embedded&&embedded.index>0&&!/^(?:個案|案主)/.test(original))original=original.slice(embedded.index);if(/^(?:現於|目前於|平時於|目前居住|居住|休假)/.test(original)&&lastPerson){updateNode(lastPerson,{note:extractSocialNote(original)});continue;}if(handlePath(original))continue;const mo=original.match(/^第?([一二三四五六七八九十\d]+)段婚姻[：，]?\s*(.*)$/);if(mo&&lastMarriageSubject){const i=/^\d+$/.test(mo[1])?Number(mo[1]):cnNumber(mo[1]),body=mo[2]||'',ctx=ensureMarriageContext(lastMarriageSubject,i,/離婚|皆離婚/.test(body)?'divorced':'married');addChildrenFromText(lastMarriageSubject,ctx.partner,ctx.union,body);lastMarriageIndex=i;continue;}
+      const [rawHead,bodyRaw]=splitRoleLine(original),head=normalizeRoleAlias(rawHead),body=bodyRaw||'';let handled=false,n=null;
+      if(/個案|案主|服務對象|主要個案|受服務者|本人/.test(head||original)){const src=head?body:original;proband=ensureRole('個案',{sex:inferSex(rawHead||head,src),age:parseAge(src),birthOrder:parseBirthOrder(src,head),deceased:hasOwnDeath(src),proband:true,note:extractSocialNote(src)},'個案');n=proband;const m=src.match(/與\s*(案妻|案夫|妻子|丈夫|太太|先生|老婆|老公)[^，。；;]*?(\d{2,3}年)?[^，。；;]*?(?:登記結婚|結婚)/);if(m){spouse=ensureRole('配偶',{sex:/妻|太太|老婆/.test(m[1])?'female':'male'},'配偶');rootMarriageLabel=m[2]?`${m[2]}登記結婚`:'登記結婚';}handled=true;}
+      else if(/^(父親|案父親|案父|爸爸|爸|父|生父)$/.test(head)){fatherText=body;father=ensureRole('父親',{sex:'male',age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body),note:extractSocialNote(body)},'父親');n=father;handled=true;}
+      else if(/^(母親|案母親|案母|媽媽|媽|母|生母)$/.test(head)){motherText=body;mother=ensureRole('母親',{sex:'female',age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body),note:extractSocialNote(body)},'母親');n=mother;handled=true;}
+      else if(/^(祖父|爺爺|阿公)$/.test(head)){paternalGrandfatherText=body;paternalGrandfather=ensureRole('祖父',{sex:'male',age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body)},'祖父');n=paternalGrandfather;handled=true;}
+      else if(/^(祖母|奶奶|阿嬤)$/.test(head)){paternalGrandmotherText=body;paternalGrandmother=ensureRole('祖母',{sex:'female',age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body)},'祖母');n=paternalGrandmother;handled=true;}
+      else if(/^(外祖父|外公)$/.test(head)){maternalGrandfatherText=body;maternalGrandfather=ensureRole('外祖父',{sex:'male',age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body)},'外祖父');n=maternalGrandfather;handled=true;}
+      else if(/^(外祖母|外婆)$/.test(head)){maternalGrandmotherText=body;maternalGrandmother=ensureRole('外祖母',{sex:'female',age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body)},'外祖母');n=maternalGrandmother;handled=true;}
+      else if(isPaternalCollateralRole(head)){n=ensureRole(head,{sex:collateralSex(head),age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body),note:extractSocialNote(body)},normalizeCollateralName(head));if(!paternalCollaterals.includes(n))paternalCollaterals.push(n);handled=true;}
+      else if(isMaternalCollateralRole(head)){n=ensureRole(head,{sex:collateralSex(head),age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body),note:extractSocialNote(body)},normalizeCollateralName(head));if(!maternalCollaterals.includes(n))maternalCollaterals.push(n);handled=true;}
+      else if(/^(配偶|伴侶|另一半|丈夫|先生|太太|妻子|老公|老婆|妻|夫)$/.test(head)){const raw=rawHead||head,sex=/妻|太太|老婆/.test(raw)?'female':/夫|先生|老公/.test(raw)?'male':inferSex(raw,body);spouse=ensureRole('配偶',{sex,age:parseAge(body),deceased:/已歿|往生|死亡|過世/.test(body),note:extractSocialNote(body)},'配偶');n=spouse;if(/前夫|前妻/.test(body)){addHistoricalUnion(spouse,body,1);lastMarriageIndex=1;}handled=true;}
+      else if(isSiblingRole(head)){const sex=inferSex(head,body),name=({'大哥':'長兄','大姐':'長姊'}[head]||head);n=ensureRole(head,{sex,age:parseOwnAge(body),birthOrder:parseBirthOrder(body,head),deceased:hasOwnDeath(body),note:extractSocialNote(body)},name);const proper=body.match(/^([\u4e00-\u9fff]{2,4})(?=為個案|為案主)/);if(proper)n.name=`${name} ${proper[1]}`;if(!siblings.includes(n))siblings.push(n);lastSibling=n;lastMarriageSubject=n;const count=parseMarriageCount(body);if(/兩段婚姻|二段婚姻|2段婚姻/.test(body)){ensureMarriageContext(n,1,/皆離婚/.test(body)?'divorced':'married');ensureMarriageContext(n,2,/皆離婚/.test(body)?'divorced':'married');lastMarriageIndex=2;}else if(/前夫|前妻/.test(body)){addHistoricalUnion(n,body,1);lastMarriageIndex=1;}else if(count>0&&/婚姻|婚配|婚過/.test(body)){for(let i=1;i<=count;i++)ensureMarriageContext(n,i,/皆離婚/.test(body)?'divorced':'married');lastMarriageIndex=count;}handled=true;}
+      else if(/懷孕/.test(head+body)){n=newNode({name:head||'懷孕',sex:'pregnancy',gestationWeeks:parseWeeks(body),note:extractSocialNote(body)});handled=true;}
+      else if(/流產|死產/.test(head+body)){const lt=/死產/.test(head+body)?'stillbirth':/人工/.test(head+body)?'abortion':/自然/.test(head+body)?'miscarriage':'unknown';n=newNode({name:head||lossTypeName(lt),sex:'loss',lossType:lt,note:extractSocialNote(body)});handled=true;}
+      else if(/外甥|姪|侄|孫/.test(head)){n=ensureDescendant(lastSibling||lastMarriageSubject||lastPerson,head,body,lastMarriageIndex);handled=!!n;}
+      else if(/^(?:案)?(?:長|次|二|三|四|五)?(?:子|女)$/.test(rawHead||head)&&lastMarriageSubject){n=ensureDescendant(lastMarriageSubject,rawHead||head,body,lastMarriageIndex);handled=!!n;}
+      else if(/^(?:長男|長子|大兒子|長女|大女兒|次男|次子|二兒子|次女|二女兒|三男|三子|三女|四男|四女|五男|五女|六男|六女|七男|七女|八男|八女|九男|九女|么子|么女|小兒子|小女兒|兒子|女兒|兒|女)$/.test(head)){const sex=inferSex(head,body),name=({'大兒子':'長子','二兒子':'次子','小兒子':'么子','兒子':'子','大女兒':'長女','二女兒':'次女','小女兒':'么女','女兒':'女'}[head]||head);n=ensureRole(name,{sex,age:parseAge(body),birthOrder:parseBirthOrder(body,head),deceased:/已歿|往生|死亡|過世/.test(body),note:extractSocialNote(body)},name);if(!children.includes(n))children.push(n);handled=true;}
+      if(n){updateNode(n,{note:extractSocialNote(body)});applyCare(n,body);lastPerson=n;}markDeceased(original);if(!handled&&/(?:共有|共計).*(?:手足|兄弟姊妹|子女)|案手足皆不知情|其餘手足|空間劃分明顯|仍有限|多在就學階段/.test(original))handled=true;if(!handled)warnings.push(original);
+    }
+    const rootUnion=proband&&spouse?rel(spouse,proband,'partner',{status:'married',label:rootMarriageLabel}):null;if(proband)children.forEach(c=>{rel(proband,c,'parent',{unionId:rootUnion?.id||''});if(spouse)rel(spouse,c,'parent',{unionId:rootUnion?.id||''});});
+    if(proband&&(father||mother)){let u=null;if(father&&mother){const c=`${fatherText} ${motherText}`;u=rel(father,mother,'partner',{status:/離婚/.test(c)?'divorced':/分居/.test(c)?'separated':'married'});}[...siblings,proband].forEach(x=>{if(father)rel(father,x,'parent',{unionId:u?.id||''});if(mother)rel(mother,x,'parent',{unionId:u?.id||''});});}
+    if(father&&(paternalGrandfather||paternalGrandmother||paternalCollaterals.length)){let u=null;if(paternalGrandfather&&paternalGrandmother)u=rel(paternalGrandfather,paternalGrandmother,'partner',{status:'married'});[...paternalCollaterals,father].forEach(x=>{if(paternalGrandfather)rel(paternalGrandfather,x,'parent',{unionId:u?.id||''});if(paternalGrandmother)rel(paternalGrandmother,x,'parent',{unionId:u?.id||''});});}
+    if(mother&&(maternalGrandfather||maternalGrandmother||maternalCollaterals.length)){let u=null;if(maternalGrandfather&&maternalGrandmother)u=rel(maternalGrandfather,maternalGrandmother,'partner',{status:'married'});[...maternalCollaterals,mother].forEach(x=>{if(maternalGrandfather)rel(maternalGrandfather,x,'parent',{unionId:u?.id||''});if(maternalGrandmother)rel(maternalGrandmother,x,'parent',{unionId:u?.id||''});});}
+    nodes.forEach(n=>delete n._claimedByText);return{nodes,relations,warnings,total:lines.length};
   }
   function getTempNode(nodes,id){return nodes.find(n=>n.id===id)}
   function applyParsed(raw){
@@ -2431,7 +2492,18 @@
 
 
   $('#parseBtn').addEventListener('click',()=>applyParsed($('#quickInput').value));
-  $('#sampleBtn').addEventListener('click',()=>{$('#quickInput').value=`個案：女性，80歲，在家照顧\n配偶：男性，已歿\n長男：55歲，婚配三次，第一次配偶58歲，育有1子28歲，第二次無子女，第三次有1女16歲\n次女：50歲，未婚\n三女：48歲，已婚，育有一子(15歲)`;});
+  $('#sampleBtn').addEventListener('click',()=>{$('#quickInput').value=`個案：男性，61歲
+案妻：59歲，第一類中度身心障礙證明，二婚，與前夫育有二子一女，已無聯繫
+父親：已歿
+母親：已歿
+案大哥：已歿
+案大弟：第一類中度身心障礙證明，協助簡單照顧
+案四弟：未婚，與個案同住，對個案事務較無實質幫助
+案大妹：主要事務處理者，擔任送餐員
+案二妹：兩段婚姻皆離婚
+案二妹／第一段婚姻：育有3女2子，其中次子已歿
+案二妹／第二段婚姻：育有3子女，約20多歲、高二、國三，已無聯繫
+案二妹／大外甥女：已婚，育有一女約3歲，居住台東`;});
   $$('[data-add-node]').forEach(b=>b.addEventListener('click',()=>addNode(b.dataset.addNode)));
   $('#drawRegionBtn')?.addEventListener('click',()=>setToolMode('region'));
   $('#addEllipseBtn')?.addEventListener('click',addEllipse);
